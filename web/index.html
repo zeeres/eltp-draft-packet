@@ -20,6 +20,7 @@
         <script src="app.js"></script>
     </head>
     <body ng-controller="draftPacketController">
+        <div ng-if="loading" id="loading-overlay"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6" id="packet-container">
@@ -34,6 +35,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr ng-repeat="row in dummy_rows" ng-if="loading" class="loading-tr">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                             <tr ng-repeat="row in packet" ng-class="{'table-active': selection == $index}" ng-click="select($index)">
                                 <td class="td-narrow">
                                     <a title="TagPro profile" ng-href="http://tagpro-chord.koalabeast.com/profile/{{ row.profile}}"><span class="fas fa-flag"></span></a>
@@ -86,6 +94,9 @@
                                 </li>
                             </ul>
                             <div id="tab-availability-weekly" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-weekly">
+                                <div class="card-body">
+                                    {{ player.availability.comment }}
+                                </div>
                                 <table class="table table-sm">
                                     <thead>
                                         <tr>

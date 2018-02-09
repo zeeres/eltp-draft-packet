@@ -4,6 +4,9 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.packet = [];
     $scope.loading = true;
 
+    $scope.dummy_rows = [];
+    for(var i=0; i<50; ++i) $scope.dummy_rows.push(i);
+
     $scope.selection = -1;
     $scope.player = {};
     $scope.weekly_availability = [];
