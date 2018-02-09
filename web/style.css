@@ -5,3 +5,7 @@ html, body, .container, .container > .row, #packet-container {
 #packet-container {
     overflow-y: auto;
 }
+
+.td-narrow {
+    width: 48px;
+}

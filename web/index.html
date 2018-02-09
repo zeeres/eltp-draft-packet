@@ -10,6 +10,8 @@
         <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css">
         <link rel="stylesheet" type="text/css" href="style.css">
 
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="app.js"></script>
     </head>
@@ -20,18 +22,21 @@
                     <table class="table table-sm table-striped table-hover" id="packet">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th class="td-narrow"></th>
+                                <th class="td-narrow"></th>
                                 <th>Player name</th>
-                                <th>Reddit name</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in packet" ng-class="{'table-active': selection == $index}" ng-click="select($index)">
-                                <td>
+                                <td class="td-narrow">
+                                    <a title="TagPro profile" ng-href="http://tagpro-chord.koalabeast.com/profile/{{ row.profile}}"><span class="fas fa-flag"></span></a>
+                                    <a title="Reddit profile" ng-href="http://reddit.com/user/{{ row.reddit }}"><span class="fab fa-reddit"></span></a>
+                                </td>
+                                <td class="td-narrow">
                                     <span ng-class="['flag-icon', 'flag-icon-' + row.country.code]"></span>
                                 </td>
                                 <td>{{ row.name }}</td>
-                                <td><a ng-href="http://reddit.com/user/{{ row.reddit }}">{{ row.reddit }}</a></td>
                             </tr>
                         </tbody>
                     </table>
