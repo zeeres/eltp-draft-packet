@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "angular": "^1.6.9",
-    "bootstrap": "^4.0.0"
+    "bootstrap": "^4.0.0",
+    "flag-icon-css": "^2.9.0"
   }
 }

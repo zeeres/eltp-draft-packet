@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css">
         <link rel="stylesheet" type="text/css" href="style.css">
 
         <script src="bower_components/angular/angular.min.js"></script>
@@ -16,15 +17,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5" id="packet-container">
-                    <table class="table table-sm table-striped table-bordered table-hover" id="packet">
+                    <table class="table table-sm table-striped table-hover" id="packet">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Player name</th>
                                 <th>Reddit name</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in packet" ng-class="{'table-active': selection == $index}" ng-click="select($index)">
+                                <td>
+                                    <span ng-class="['flag-icon', 'flag-icon-' + row.country.code]"></span>
+                                </td>
                                 <td>{{ row.name }}</td>
                                 <td><a ng-href="http://reddit.com/user/{{ row.reddit }}">{{ row.reddit }}</a></td>
                             </tr>

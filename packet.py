@@ -77,20 +77,20 @@ def fix_country(country):
         country = 'united states'
 
     c = None
-    country = country.title()
+    country_ = country.title()
 
     # I'm so sorry
     try:
-        c = pycountry.countries.get(name=country)
+        c = pycountry.countries.get(name=country_)
     except KeyError:
         try:
-            c = pycountry.countries.get(official_name=country)
+            c = pycountry.countries.get(official_name=country_)
         except KeyError:
             try:
-                c = pycountry.countries.get(alpha_2=country)
+                c = pycountry.countries.get(alpha_2=country_)
             except KeyError:
                 try:
-                    c = pycountry.countries.get(alpha_3=country)
+                    c = pycountry.countries.get(alpha_3=country_)
                 except KeyError:
                     pass
 
@@ -99,7 +99,7 @@ def fix_country(country):
         code = ''
         name = country
     else:
-        code = c.alpha_3
+        code = c.alpha_2.lower()
         name = c.name
 
     return {'code': code, 'name': name}
