@@ -63,21 +63,21 @@ def fix_reddit(name):
 
 
 def fix_country(country):
-    country = country.lower().strip()
+    country_ = country.lower().strip()
 
-    if country == 'the netherlands':
-        country = 'netherlands'
+    if country_ == 'the netherlands':
+        country_ = 'netherlands'
 
-    if country in ('england', 'scotland', 'wales', 'northern ireland',
-                   'uk', 'great britain'):
-        country = 'united kingdom'
+    if country_ in ('england', 'scotland', 'wales', 'northern ireland',
+                    'uk', 'great britain'):
+        country_ = 'united kingdom'
 
-    if country in ('us', 'usa', 'united states of america', 'america') or\
-            'america' in country:  # sorry
-        country = 'united states'
+    if country_ in ('us', 'usa', 'united states of america', 'america') or\
+            'america' in country_:  # sorry
+        country_ = 'united states'
 
     c = None
-    country_ = country.title()
+    country_ = country_.title()
 
     # I'm so sorry
     try:
