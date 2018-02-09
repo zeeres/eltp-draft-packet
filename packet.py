@@ -19,6 +19,8 @@ def process_row(row):
 
     weekly = list(map(fix_weekly, [w1, w2, w3, w4, w5, w6, w7,
                                    w8, w9, w10, w11, w12, w13, w14]))
+    daily = list(map(fix_daily, [monday, tuesday, wednesday, thursday,
+                                 friday, saturday, sunday]))
 
     return {
         'name': player_name,
@@ -33,8 +35,7 @@ def process_row(row):
 
         'availability': {
             'weekly': weekly,
-            'daily': [monday, tuesday, wednesday, thursday,
-                      friday, saturday, sunday],
+            'daily': daily,
             'comment': comment_availability
         },
 
@@ -109,3 +110,14 @@ def fix_weekly(availability):
     return ['Sunday' in days,
             'Monday' in days,
             'Tuesday' in days]
+
+
+def fix_daily(availability):
+    if availability == 'Definitely can\'t make it':
+        return 0
+    elif availability == 'I can make it':
+        return 1
+    elif availability == 'Would rather not play/practice':
+        return 2
+    else:  # Don't know
+        return 3
