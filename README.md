@@ -12,6 +12,14 @@ The program is currently based on the signup format for season 11, so will proba
 2. The draft packet is uploaded to a web server using FTP
 3. The front-end loads the JSON packet to populate itself
 
+## requirements
+
+python3, with the following packages (can be installed using pip3):
+
+* pycountry
+* gspread
+* gdata (i think)
+
 ## how to set up
 
 You will need:
@@ -37,6 +45,8 @@ The Python backend needs two files not present in this repo: `credentials.json` 
       "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
       "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/draft-packet%40eltp-xxxxxx.iam.gserviceaccount.com"
     }
+
+Make sure you share your responses spreadsheet (in google drive) with the `client_email`. Doesn't matter if the sheet is public, it won't work unless you share it.
 
 `ftp.json` contains credentials and a file path, something like this:
 
