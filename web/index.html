@@ -48,6 +48,9 @@
                                 {{ player.name }}
                                 <a ng-click="select(-1)" class="btn close pull-right"><span>&times;</span></a>
                             </h4>
+                            <h6 ng-if="player.old_name !== ''" class="card-subtitle text-muted">
+                                formerly {{ player.old_name }}
+                            </h6>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
