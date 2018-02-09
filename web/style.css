@@ -3,7 +3,7 @@ html, body, .container, .container > .row, #packet-container {
 }
 
 #packet-container {
-    overflow-y: auto;
+    overflow: auto;
 }
 
 .td-narrow {
@@ -20,4 +20,33 @@ html, body, .container, .container > .row, #packet-container {
 
 stars, stars > * {
     user-select: none;
+}
+
+body {
+    background-color: #eee;
+}
+
+#packet-container {
+    padding-right: 0;
+}
+
+#packet {
+    background-color: white;
+}
+
+a[href]:not([role=tab]) {
+    color: #c0392b;
+}
+
+thead {
+    background-color: #c0392b;
+    color: white;
+}
+
+thead tr th {
+    border: none;
+}
+
+#selected-player-overview {
+    margin-top: 2em;
 }
