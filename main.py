@@ -22,7 +22,7 @@ sheet = gc.open_by_key(sys.argv[1]).get_worksheet(0)
 print('Opened spreadsheet, creating draft packet...')
 
 rows = sheet.get_all_values()
-packet = list(map(process_row, rows))
+packet = list(map(process_row, rows[1:]))
 raw = json.dumps(packet)
 
 print(f'Draft packet created with {len(packet)} rows')
