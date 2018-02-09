@@ -25,6 +25,7 @@
                                 <th class="td-narrow"></th>
                                 <th class="td-narrow"></th>
                                 <th>Player name</th>
+                                <th>Rating</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,9 @@
                                     <span ng-class="['flag-icon', 'flag-icon-' + row.country.code]"></span>
                                 </td>
                                 <td>{{ row.name }}</td>
+                                <td>
+                                    <stars rating="$index / packet.length"></stars>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

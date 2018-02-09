@@ -78,3 +78,13 @@ app.directive('availability', function() {
         'template': '<span ng-class="[\'fas\', {\'fa-times\': available, \'fa-check\': !available, \'unavailable\': available}]"></span>'
     };
 });
+
+app.directive('stars', function() {
+    return {
+        'restrict': 'E',
+        'scope': {
+            'rating': '='
+        },
+        'template': '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star-half"></span>'
+    };
+});
