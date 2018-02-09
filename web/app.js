@@ -8,6 +8,9 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.player = {};
 
     $scope.select = function(i) {
+        if(i === $scope.selection)
+            i = -1;
+
         $scope.selection = i;
         if(i >= 0)
             $scope.player = $scope.packet[i];
