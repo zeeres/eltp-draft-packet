@@ -59,6 +59,14 @@
                             <h6 ng-if="player.old_name !== ''" class="card-subtitle text-muted">
                                 formerly {{ player.old_name }}
                             </h6>
+                            <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active">Information</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link">Weekly availability</a>
+                                </li>
+                            </ul>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
@@ -72,13 +80,6 @@
                                 {{ player.comment }}
                             </li>
                         </ul>
-                        <div class="card-header">
-                            <ul class="nav nav-tabs card-header-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active">Weekly availability</a>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="card-block">
                             <table class="table table-sm">
                                 <thead>
