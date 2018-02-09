@@ -1,3 +1,4 @@
+import pycountry
 import re
 
 
@@ -14,6 +15,7 @@ def process_row(row):
     ) = row
 
     reddit_name = fix_reddit(reddit_name)
+    country = fix_country(country)
 
     return {
         'name': player_name,
@@ -55,3 +57,46 @@ def fix_reddit(name):
         return m.group(2)
 
     return name  # Oh well
+
+
+def fix_country(country):
+    country = country.lower().strip()
+
+    if country == 'the netherlands':
+        country = 'netherlands'
+
+    if country in ('england', 'scotland', 'wales', 'northern ireland',
+                   'uk', 'great britain'):
+        country = 'united kingdom'
+
+    if country in ('us', 'usa', 'united states of america', 'america') or\
+            'america' in country:  # sorry
+        country = 'united states'
+
+    c = None
+    country = country.title()
+
+    # I'm so sorry
+    try:
+        c = pycountry.countries.get(name=country)
+    except KeyError:
+        try:
+            c = pycountry.countries.get(official_name=country)
+        except KeyError:
+            try:
+                c = pycountry.countries.get(alpha_2=country)
+            except KeyError:
+                try:
+                    c = pycountry.countries.get(alpha_3=country)
+                except KeyError:
+                    pass
+
+    if c is None:
+        # We tried
+        code = ''
+        name = country
+    else:
+        code = c.alpha_3
+        name = c.name
+
+    return {'code': code, 'name': name}
