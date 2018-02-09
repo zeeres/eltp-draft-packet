@@ -1,3 +1,6 @@
+import re
+
+
 def process_row(row):
     (
         timestamp, player_name, old_name, tagpro_id, reddit_name,
@@ -9,6 +12,8 @@ def process_row(row):
         microphone, comment,
         *_
     ) = row
+
+    reddit_name = fix_reddit(reddit_name)
 
     return {
         'name': player_name,
@@ -38,3 +43,15 @@ def process_row(row):
 
         'comment': comment
     }
+
+
+reddit_regex = re.compile(r'(/?u/)?(.*)')
+
+
+def fix_reddit(name):
+    m = reddit_regex.match(name)
+
+    if m is not None:
+        return m.group(2)
+
+    return name  # Oh well
