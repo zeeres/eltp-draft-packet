@@ -2,6 +2,8 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+from ftplib import FTP
+import io
 import json
 import sys
 
@@ -17,7 +19,26 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(
 gc = gspread.authorize(credentials)
 sheet = gc.open_by_key(sys.argv[1]).get_worksheet(0)
 
+print('Opened spreadsheet, creating draft packet...')
+
 rows = sheet.get_all_values()
 packet = list(map(process_row, rows))
+raw = json.dumps(packet)
 
-print(json.dumps(packet))
+print(f'Draft packet created with {len(packet)} rows')
+
+with open('ftp.json') as f:
+    data = json.load(f)
+    host = data['host']
+    user = data['user']
+    pwd = data['pass']
+
+print('Connecting to FTP...')
+ftp = FTP(host, user, pwd)
+ftp.cwd('/public/sites/eltp.arfie.nl')
+
+print('Uploading draft packet...')
+bio = io.BytesIO(bytes(raw, "utf-8"))
+ftp.storbinary('STOR packet.json', bio)
+ftp.close()
+print('Done!')
