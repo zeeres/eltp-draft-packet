@@ -22,6 +22,9 @@ def process_row(row):
     daily = list(map(fix_daily, [monday, tuesday, wednesday, thursday,
                                  friday, saturday, sunday]))
 
+    pos = fix_position(position, position_preference)
+    microphone = fix_microphone(microphone)
+
     return {
         'name': player_name,
         'old_name': old_name,
@@ -39,10 +42,7 @@ def process_row(row):
             'comment': comment_availability
         },
 
-        'position': {
-            'primary': position,
-            'preference': position_preference
-        },
+        'position': pos,
 
         'microphone': microphone,
 
@@ -121,3 +121,24 @@ def fix_daily(availability):
         return 2
     else:  # Don't know
         return 3
+
+
+def fix_position(position, preference):
+    pos = '?'
+    if position == 'Defence only':
+        pos = 'd'
+    elif position == 'Offence only':
+        pos = 'o'
+
+    pref = ''
+    if pos == '?':
+        if preference == 'I prefer offence':
+            pref = 'o'
+        elif preference == 'I prefer defence':
+            pref = 'd'
+
+    return {'primary': pos, 'preference': pref}
+
+
+def fix_microphone(microphone):
+    return microphone == 'Yes'
