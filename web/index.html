@@ -34,7 +34,10 @@
                 <div id="selected-player-overview" ng-show="selection >= 0" class="col-md-7">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">{{ packet[selection].name }}</h4>
+                            <h4 class="card-title">
+                                {{ packet[selection].name }}
+                                <a ng-click="select(-1)" class="btn close pull-right"><span>&times;</span></a>
+                            </h4>
                         </div>
                         <div class="card-block">
                             {{ packet[selection].country.name }}
