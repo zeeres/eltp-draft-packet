@@ -15,6 +15,8 @@ app.controller('draftPacketController', function($scope, $http) {
         if(i === $scope.selection)
             i = -1;
 
+        $('#packet-container').popover('hide');
+
         $scope.selection = i;
         if(i >= 0) {
             $scope.player = $scope.packet[i];
@@ -69,6 +71,13 @@ app.controller('draftPacketController', function($scope, $http) {
     $http.get('packet.json').then(data => {
         $scope.packet = data.data;
         $scope.loading = false;
+
+        $('#packet-container').popover({
+            'placement': 'right',
+            'content': 'Click a player to view more information!',
+            'trigger': 'manual',
+            'offset': '0px 20px'
+        }).popover('show');
     });
 });
 

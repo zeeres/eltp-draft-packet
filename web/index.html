@@ -61,68 +61,70 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="selected-player-overview" ng-show="selection >= 0" class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">
-                                {{ player.name }}
-                                <a ng-click="select(-1)" class="btn close pull-right"><span>&times;</span></a>
-                                <small ng-if="player.old_name !== ''" class="text-muted">
-                                    (formerly {{ player.old_name }})
-                                </small>
-                            </h4>
-                            <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                                <li class="nav-item">
-                                    <a id="nav-tab-information" class="nav-link active" data-toggle="tab" role="tab" href="#tab-information" aria-controls="tab-information" aria-selected="true">Information</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a id="nav-tab-availability-weekly" class="nav-link" data-toggle="tab" role="tab" href="#tab-availability-weekly" aria-controls="tab-availability-weekly" aria-selected="false">Weekly availability</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-content">
-                            <ul id="tab-information" class="list-group list-group-flush tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-information">
-                                <li class="list-group-item">
-                                    {{ format_position(player.position) }}
-                                </li>
-                                <li class="list-group-item">
-                                    <span ng-class="['flag-icon', 'flag-icon-' + player.country.code]"></span>
-                                    {{ player.country.name }}
-                                </li>
-                                <li class="list-group-item" ng-if="player.comment !== ''">
-                                    {{ player.comment }}
-                                </li>
-                            </ul>
-                            <div id="tab-availability-weekly" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-weekly">
-                                <div class="card-body">
-                                    {{ player.availability.comment }}
+                <div class="col-md-6" id="right-panel">
+                    <div id="selected-player-overview" ng-show="selection >= 0">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    {{ player.name }}
+                                    <a ng-click="select(-1)" class="btn close pull-right"><span>&times;</span></a>
+                                    <small ng-if="player.old_name !== ''" class="text-muted">
+                                        (formerly {{ player.old_name }})
+                                    </small>
+                                </h4>
+                                <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a id="nav-tab-information" class="nav-link active" data-toggle="tab" role="tab" href="#tab-information" aria-controls="tab-information" aria-selected="true">Information</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="nav-tab-availability-weekly" class="nav-link" data-toggle="tab" role="tab" href="#tab-availability-weekly" aria-controls="tab-availability-weekly" aria-selected="false">Weekly availability</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <ul id="tab-information" class="list-group list-group-flush tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-information">
+                                    <li class="list-group-item">
+                                        {{ format_position(player.position) }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span ng-class="['flag-icon', 'flag-icon-' + player.country.code]"></span>
+                                        {{ player.country.name }}
+                                    </li>
+                                    <li class="list-group-item" ng-if="player.comment !== ''">
+                                        {{ player.comment }}
+                                    </li>
+                                </ul>
+                                <div id="tab-availability-weekly" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-weekly">
+                                    <div class="card-body">
+                                        {{ player.availability.comment }}
+                                    </div>
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Week</th>
+                                                <th>S</th>
+                                                <th>M</th>
+                                                <th>T</th>
+                                                <th>Week</th>
+                                                <th>S</th>
+                                                <th>M</th>
+                                                <th>T</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="week in weekly_availability">
+                                                <td>{{ weeknames[$index].first }}</td>
+                                                <td><availability available="week.first[0]"></availability></td>
+                                                <td><availability available="week.first[1]"></availability></td>
+                                                <td><availability available="week.first[2]"></availability></td>
+                                                <td>{{ weeknames[$index].second }}</td>
+                                                <td><availability available="week.second[0]"></availability></td>
+                                                <td><availability available="week.second[1]"></availability></td>
+                                                <td><availability available="week.second[2]"></availability></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <table class="table table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>Week</th>
-                                            <th>S</th>
-                                            <th>M</th>
-                                            <th>T</th>
-                                            <th>Week</th>
-                                            <th>S</th>
-                                            <th>M</th>
-                                            <th>T</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="week in weekly_availability">
-                                            <td>{{ weeknames[$index].first }}</td>
-                                            <td><availability available="week.first[0]"></availability></td>
-                                            <td><availability available="week.first[1]"></availability></td>
-                                            <td><availability available="week.first[2]"></availability></td>
-                                            <td>{{ weeknames[$index].second }}</td>
-                                            <td><availability available="week.second[0]"></availability></td>
-                                            <td><availability available="week.second[1]"></availability></td>
-                                            <td><availability available="week.second[2]"></availability></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>

@@ -14,7 +14,7 @@ html, body, .container, .container > .row, #packet-container {
     color: darkred;
 }
 
-#packet tr {
+#packet tbody tr {
     cursor: pointer;
 }
 
@@ -84,4 +84,10 @@ thead tr th {
     display: block;
     font-weight bold;
     font-size: 1.5em;
+}
+
+#right-panel {
+    background-image: url(logo.png);
+    background-repeat: no-repeat;
+    background-position: center;
 }
