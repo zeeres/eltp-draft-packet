@@ -26,6 +26,7 @@
                                 <th class="td-narrow"></th>
                                 <th>Player name</th>
                                 <th>Rating</th>
+                                <th>Position</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +41,9 @@
                                 <td>{{ row.name }}</td>
                                 <td>
                                     <stars rating="$index / packet.length"></stars>
+                                </td>
+                                <td>
+                                    {{ format_position(row.position) }}
                                 </td>
                             </tr>
                         </tbody>
