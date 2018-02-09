@@ -60,7 +60,7 @@
                                 <span ng-class="['flag-icon', 'flag-icon-' + player.country.code]"></span>
                                 {{ player.country.name }}
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item" ng-if="player.comment !== ''">
                                 {{ player.comment }}
                             </li>
                         </ul>
