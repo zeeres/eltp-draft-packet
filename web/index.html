@@ -12,19 +12,25 @@
         <script src="app.js"></script>
     </head>
     <body ng-controller="draftPacketController">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Player name</th>
-                    <th>Reddit name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="row in packet">
-                    <td>{{ row.name }}</td>
-                    <td><a ng-href="http://reddit.com/user/{{ row.reddit }}">{{ row.reddit }}</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <table class="table table-sm table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Player name</th>
+                                <th>Reddit name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in packet">
+                                <td>{{ row.name }}</td>
+                                <td><a ng-href="http://reddit.com/user/{{ row.reddit }}">{{ row.reddit }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
