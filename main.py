@@ -13,6 +13,8 @@ if len(sys.argv) < 2:
     print('Provide a sheet key')
     exit()
 
+print('Authorizing GSheets...')
+
 scope = ['https://spreadsheets.google.com/feeds']
 credentials = ServiceAccountCredentials.from_json_keyfile_name(
     'credentials.json', scope)
@@ -32,13 +34,15 @@ with open('ftp.json') as f:
     host = data['host']
     user = data['user']
     pwd = data['pass']
+    path = data['path']
+    filename = data['filename']
 
 print('Connecting to FTP...')
 ftp = FTP(host, user, pwd)
-ftp.cwd('/public/sites/eltp.arfie.nl')
+ftp.cwd(path)
 
 print('Uploading draft packet...')
 bio = io.BytesIO(bytes(raw, "utf-8"))
-ftp.storbinary('STOR packet.json', bio)
+ftp.storbinary(f'STOR {filename}', bio)
 ftp.close()
 print('Done!')
