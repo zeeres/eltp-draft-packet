@@ -1,0 +1,8 @@
+credentials.json
+
+*.pyc
+__pycache__
+
+# vim turds
+.*.swp
+.*.swo
