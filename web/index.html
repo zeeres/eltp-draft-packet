@@ -10,6 +10,19 @@
         <script src="app.js"></script>
     </head>
     <body ng-controller="draftPacketController">
-        <h1>{{ title }}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Player name</th>
+                    <th>Reddit name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in packet">
+                    <td>{{ row.name }}</td>
+                    <td><a ng-href="http://reddit.com/user/{{ row.reddit }}">{{ row.reddit }}</a></td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>

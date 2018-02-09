@@ -4,6 +4,7 @@ ftp.json
 *.pyc
 __pycache__
 
+web/packet.json
 web/bower_components
 
 # vim turds
