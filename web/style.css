@@ -9,3 +9,7 @@ html, body, .container, .container > .row, #packet-container {
 .td-narrow {
     width: 48px;
 }
+
+.unavailable {
+    color: darkred;
+}
