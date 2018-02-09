@@ -13,3 +13,7 @@ html, body, .container, .container > .row, #packet-container {
 .unavailable {
     color: darkred;
 }
+
+stars, stars > * {
+    user-select: none;
+}
