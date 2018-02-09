@@ -27,7 +27,7 @@ body {
 }
 
 #packet-container {
-    padding-right: 0;
+    padding: 0;
 }
 
 #packet {
@@ -49,6 +49,22 @@ thead tr th {
 
 #selected-player-overview {
     margin-top: 2em;
+}
+
+@media (max-width: 768px) {
+    #selected-player-overview {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        margin: 0;
+        padding-top: 1em;
+        background-color: rgba(0, 0, 0, 0.75);
+    }
+
+    .hidden-xs {display: none;}
 }
 
 .loading-tr td::after {

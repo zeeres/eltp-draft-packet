@@ -31,7 +31,7 @@
                                 <th class="td-narrow"></th>
                                 <th>Player name</th>
                                 <th>Rating</th>
-                                <th>Position</th>
+                                <th class="hidden-xs">Position</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +40,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td class="hidden-xs"></td>
                             </tr>
                             <tr ng-repeat="row in packet" ng-class="{'table-active': selection == $index}" ng-click="select($index)">
                                 <td class="td-narrow">
@@ -54,7 +54,7 @@
                                 <td>
                                     <stars rating="$index / packet.length"></stars>
                                 </td>
-                                <td>
+                                <td class="hidden-xs">
                                     {{ format_position(row.position) }}
                                 </td>
                             </tr>
