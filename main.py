@@ -35,7 +35,6 @@ with open('ftp.json') as f:
     user = data['user']
     pwd = data['pass']
     path = data['path']
-    filename = data['filename']
 
 print('Connecting to FTP...')
 ftp = FTP(host, user, pwd)
@@ -43,6 +42,6 @@ ftp.cwd(path)
 
 print('Uploading draft packet...')
 bio = io.BytesIO(bytes(raw, "utf-8"))
-ftp.storbinary(f'STOR {filename}', bio)
+ftp.storbinary('STOR packet.json', bio)
 ftp.close()
 print('Done!')
