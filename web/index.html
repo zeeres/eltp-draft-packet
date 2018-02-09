@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="draftPacketApp">
+<html ng-app="draftPacketApp" class="h-100">
     <head>
         <title>ELTP Draft Packet</title>
 
@@ -11,10 +11,10 @@
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="app.js"></script>
     </head>
-    <body ng-controller="draftPacketController">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
+    <body ng-controller="draftPacketController" class="h-100">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-md-5 h-100" style="overflow-y: auto">
                     <table class="table table-sm table-striped table-bordered table-hover">
                         <thead>
                             <tr>
@@ -23,12 +23,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in packet">
+                            <tr ng-repeat="row in packet" ng-class="{'table-active': selection == $index}" ng-click="select($index)">
                                 <td>{{ row.name }}</td>
                                 <td><a ng-href="http://reddit.com/user/{{ row.reddit }}">{{ row.reddit }}</a></td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div id="selected-player-overview" ng-show="selection >= 0" class="col-md-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ packet[selection].name }}</h4>
+                        </div>
+                        <div class="card-block">
+                            {{ packet[selection].country.name }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
