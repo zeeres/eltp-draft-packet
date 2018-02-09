@@ -17,6 +17,9 @@ def process_row(row):
     reddit_name = fix_reddit(reddit_name)
     country = fix_country(country)
 
+    weekly = list(map(fix_weekly, [w1, w2, w3, w4, w5, w6, w7,
+                                   w8, w9, w10, w11, w12, w13, w14]))
+
     return {
         'name': player_name,
         'old_name': old_name,
@@ -29,8 +32,7 @@ def process_row(row):
         },
 
         'availability': {
-            'weekly': [w1, w2, w3, w4, w5, w6, w7,
-                       w8, w9, w10, w11, w12, w13, w14],
+            'weekly': weekly,
             'daily': [monday, tuesday, wednesday, thursday,
                       friday, saturday, sunday],
             'comment': comment_availability
@@ -100,3 +102,10 @@ def fix_country(country):
         name = c.name
 
     return {'code': code, 'name': name}
+
+
+def fix_weekly(availability):
+    days = availability.split(', ')
+    return ['Sunday' in days,
+            'Monday' in days,
+            'Tuesday' in days]
