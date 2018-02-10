@@ -107,3 +107,16 @@ thead tr th {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.nav-tabs {
+    overflow-y: hidden;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    position: relative;
+    top: 1px;
+}
+
+.nav-tabs .nav-item {
+    white-space: nowrap;
+    float: none;
+}

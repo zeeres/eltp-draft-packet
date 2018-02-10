@@ -11,6 +11,8 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.player = {};
     $scope.weekly_availability = [];
 
+    $scope.weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
     $scope.select = function(i) {
         if(i === $scope.selection)
             i = -1;
@@ -104,5 +106,18 @@ app.directive('stars', function() {
                     '<span ng-if="rating >= 9" class="fas fa-star"></span>' +
                     '<span ng-if="rating > 0 && rating < 1 || rating >= 2 && rating < 3 || rating >= 4 && rating < 5 || rating >= 6 && rating < 7 || rating >= 8 && rating < 9" class="fas fa-star-half"></span>' +
                     '<em ng-if="rating === 0">not rated</em>'
+    };
+});
+
+app.directive('dailyavailability', function() {
+    return {
+        'restrict': 'E',
+        'scope': {
+            'available': '='
+        },
+        'template': '<span ng-if="available === 0" class="text-danger">Unavailable</span>' +
+                    '<span ng-if="available === 1">Available</span>' +
+                    '<span ng-if="available === 2" class="text-warning">Would rather not show up</span>' +
+                    '<span ng-if="available === 3" class="text-warning">Unsure</span>'
     };
 });

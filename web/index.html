@@ -79,6 +79,9 @@
                                     <li class="nav-item">
                                         <a id="nav-tab-availability-weekly" class="nav-link" data-toggle="tab" role="tab" href="#tab-availability-weekly" aria-controls="tab-availability-weekly" aria-selected="false">Weekly availability</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a id="nav-tab-availability-daily" class="nav-link" data-toggle="tab" role="tab" href="#tab-availability-daily" aria-controls="tab-availability-daily" aria-selected="false">Daily availability</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="tab-content">
@@ -121,6 +124,27 @@
                                                 <td><availability available="week.second[0]"></availability></td>
                                                 <td><availability available="week.second[1]"></availability></td>
                                                 <td><availability available="week.second[2]"></availability></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="tab-availability-daily" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-daily">
+                                    <div class="card-body">
+                                        {{ player.availability.comment }}
+                                    </div>
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Day</th>
+                                                <th>Availability</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="day in weekdays">
+                                                <td>{{ day }}</td>
+                                                <td>
+                                                    <dailyavailability available="player.availability.daily[$index]"></dailyavailability>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
