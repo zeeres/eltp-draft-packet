@@ -97,6 +97,12 @@ app.directive('stars', function() {
         'scope': {
             'rating': '='
         },
-        'template': '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star-half"></span>'
+        'template': '<span ng-if="rating >= 1" class="fas fa-star"></span>' +
+                    '<span ng-if="rating >= 3" class="fas fa-star"></span>' +
+                    '<span ng-if="rating >= 5" class="fas fa-star"></span>' +
+                    '<span ng-if="rating >= 7" class="fas fa-star"></span>' +
+                    '<span ng-if="rating >= 9" class="fas fa-star"></span>' +
+                    '<span ng-if="rating > 0 && rating < 1 || rating >= 2 && rating < 3 || rating >= 4 && rating < 5 || rating >= 6 && rating < 7 || rating >= 8 && rating < 9" class="fas fa-star-half"></span>' +
+                    '<em ng-if="rating === 0">not rated</em>'
     };
 });
