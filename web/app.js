@@ -89,7 +89,7 @@ app.directive('availability', function() {
         'scope': {
             'available': '='
         },
-        'template': '<span ng-class="[\'fas\', {\'fa-times\': available, \'fa-check\': !available, \'unavailable\': available}]"></span>'
+        'template': '<span ng-class="[\'fas\', {\'fa-times\': available, \'fa-check\': !available, \'text-danger\': available}]"></span>'
     };
 });
 

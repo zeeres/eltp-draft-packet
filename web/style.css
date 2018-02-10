@@ -10,10 +10,6 @@ html, body, .container, .container > .row, #packet-container {
     width: 24px;
 }
 
-.unavailable {
-    color: darkred;
-}
-
 #packet tbody tr {
     cursor: pointer;
 }
