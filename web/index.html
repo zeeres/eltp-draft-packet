@@ -67,6 +67,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
+                                    <span ng-class="['flair', player.flair]"></span>
                                     {{ player.name }}
                                     <a ng-click="select(-1)" class="btn close pull-right"><span>&times;</span></a>
                                     <small ng-if="player.old_name !== ''" class="text-muted">
@@ -86,18 +87,37 @@
                                 </ul>
                             </div>
                             <div class="tab-content">
-                                <ul id="tab-information" class="list-group list-group-flush tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-information">
-                                    <li class="list-group-item">
+                                <div id="tab-information" class="player-info tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-information">
+                                    <div class="w50">
+                                        <a ng-href="http://tagpro-chord.koalabeast.com/profile/{{ player.profile }}">TagPro Profile</a>
+                                    </div>
+                                    <div class="w50">
+                                        <span class="fab fa-reddit-alien"></span>
+                                        <a ng-href="https://reddit.com/user/{{ player.reddit }}">u/{{ player.reddit }}</a>
+                                    </div>
+                                    <div class="w50">
                                         {{ format_position(player.position) }}
-                                    </li>
-                                    <li class="list-group-item">
+                                    </div>
+                                    <div ng-if="player.microphone" class="w50">
+                                        Has a microphone
+                                    </div>
+                                    <div ng-if="!player.microphone" class="text-danger w50">
+                                        No microphone
+                                    </div>
+                                    <div class="w50">
                                         <span ng-class="['flag-icon', 'flag-icon-' + player.country.code]"></span>
                                         {{ player.country.name }}
-                                    </li>
-                                    <li class="list-group-item" ng-if="player.comment !== ''">
+                                    </div>
+                                    <div class="w25">
+                                        Chord: {{ player.ping.chord }}
+                                    </div>
+                                    <div class="w25">
+                                        Orbit: {{ player.ping.orbit }}
+                                    </div>
+                                    <div ng-if="player.comment !== ''" class="w100">
                                         {{ player.comment }}
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                                 <div id="tab-availability-weekly" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-weekly">
                                     <div class="card-body">
                                         {{ player.availability.comment }}

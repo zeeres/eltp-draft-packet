@@ -34,10 +34,6 @@ body {
     background-color: white;
 }
 
-a[href]:not([role=tab]) {
-    color: #c0392b;
-}
-
 thead {
     background-color: #c0392b;
     color: white;
@@ -120,6 +116,25 @@ thead tr th {
     white-space: nowrap;
     float: none;
 }
+
+.player-info {
+    display: flex;
+    flex-flow: row wrap;
+    margin-right: -3px;
+    margin-bottom: -1px;
+}
+
+.player-info > div {
+    display: inline-block;
+    padding: .75rem 1.25rem;
+    border-bottom: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    margin: 0 -2px;
+}
+
+.w25 {width: 25%;}
+.w50 {width: 50%;}
+.w100 {width: 100%;}
 
 .flair {
     background-image: url(//tagpro-chord.koalabeast.com/images/flair.png);
