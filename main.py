@@ -76,7 +76,7 @@ for i, r in enumerate(rows[1:]):
 print('Sorting the packet...')
 packet = sorted(packet, key=lambda r: -r['rating'])
 load_profiles(packet)
-raw = json.dumps(packet)
+raw = json.dumps(packet, separators=(',', ':'))
 
 print(f'Draft packet created with {len(packet)} rows')
 
