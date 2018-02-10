@@ -123,6 +123,8 @@ thead tr th {
 
 .flair {
     background-image: url(//tagpro-chord.koalabeast.com/images/flair.png);
+    background-position: 1000px 1000px;
+    background-repeat: no-repeat;
     display: inline-block;
     width: 16px;
     height: 16px;
