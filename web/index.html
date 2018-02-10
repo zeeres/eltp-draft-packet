@@ -29,7 +29,9 @@
                             <tr>
                                 <th class="td-narrow"></th>
                                 <th class="td-narrow"></th>
-                                <th>Player name</th>
+                                <th class="td-narrow"></th>
+                                <th class="td-narrow"></th>
+                                <th>Player</th>
                                 <th>Rating</th>
                                 <th class="hidden-xs">Position</th>
                             </tr>
@@ -40,17 +42,26 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
                                 <td class="hidden-xs"></td>
                             </tr>
                             <tr ng-repeat="row in packet" ng-class="{'table-active': selection == $index}" ng-click="select($index)">
                                 <td class="td-narrow">
                                     <a title="TagPro profile" ng-href="http://tagpro-chord.koalabeast.com/profile/{{ row.profile}}"><span class="fas fa-flag"></span></a>
+                                </td>
+                                <td class="td-narrow">
                                     <a title="Reddit profile" ng-href="http://reddit.com/user/{{ row.reddit }}"><span class="fab fa-reddit-alien"></span></a>
                                 </td>
                                 <td class="td-narrow">
                                     <span ng-class="['flag-icon', 'flag-icon-' + row.country.code]"></span>
                                 </td>
-                                <td>{{ row.name }}</td>
+                                <td class="td-narrow">
+                                    <span class="flair event-lgbt"></span>
+                                </td>
+                                <td>
+                                    {{ row.name }}
+                                </td>
                                 <td>
                                     <stars rating="row.rating"></stars>
                                 </td>
