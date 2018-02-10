@@ -1,5 +1,6 @@
 credentials.json
 ftp.json
+sheets.json
 
 *.pyc
 __pycache__

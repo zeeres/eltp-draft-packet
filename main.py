@@ -5,13 +5,16 @@ from oauth2client.service_account import ServiceAccountCredentials
 from ftplib import FTP
 import io
 import json
-import sys
 
 from packet import process_row
 
-if len(sys.argv) < 2:
-    print('Provide a sheet key')
-    exit()
+print('Loading GSheet keys...')
+
+with open('sheets.json') as f:
+    data = json.load(f)
+    sheet_packet = data['packet']
+    sheet_ratings = data['ratings']
+    sheet_comments = data['comments']
 
 print('Authorizing GSheets...')
 
@@ -19,7 +22,7 @@ scope = ['https://spreadsheets.google.com/feeds']
 credentials = ServiceAccountCredentials.from_json_keyfile_name(
     'credentials.json', scope)
 gc = gspread.authorize(credentials)
-sheet = gc.open_by_key(sys.argv[1]).get_worksheet(0)
+sheet = gc.open_by_key(sheet_packet).get_worksheet(0)
 
 print('Opened spreadsheet, creating draft packet...')
 
