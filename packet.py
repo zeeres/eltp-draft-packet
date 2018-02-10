@@ -2,7 +2,7 @@ import pycountry
 import re
 
 
-def process_row(row):
+def process_row(row, rating):
     (
         timestamp, player_name, old_name, tagpro_id, reddit_name,
         country, ping_orbit, ping_chord,
@@ -46,7 +46,9 @@ def process_row(row):
 
         'microphone': microphone,
 
-        'comment': comment
+        'comment': comment,
+
+        'rating': rating.get_rating()
     }
 
 
