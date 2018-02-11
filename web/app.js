@@ -35,13 +35,26 @@ app.controller('draftPacketController', function($scope, $http) {
             '?': true,
             'd?': true,
             'd': true
+        },
+        rating: {
+            9: true,
+            8: true,
+            7: true,
+            6: true,
+            5: true,
+            4: true,
+            3: true,
+            2: true,
+            1: true,
+            0: true
         }
     };
 
     $scope.hasFilter = {
         any: false,
         countries: false,
-        positions: false
+        positions: false,
+        rating: false
     };
 
     $scope.updateFilterDisplays = function() {
@@ -53,9 +66,11 @@ app.controller('draftPacketController', function($scope, $http) {
         }
         $scope.hasFilter.countries = check($scope.filter.countries);
         $scope.hasFilter.positions = check($scope.filter.positions);
+        $scope.hasFilter.rating = check($scope.filter.rating);
 
         $scope.hasFilter.any = $scope.hasFilter.countries
-                            || $scope.hasFilter.positions;
+                            || $scope.hasFilter.positions
+                            || $scope.hasFilter.rating;
     };
 
     $scope.resetFilters = function() {
@@ -65,6 +80,7 @@ app.controller('draftPacketController', function($scope, $http) {
         }
         reset($scope.filter.countries);
         reset($scope.filter.positions);
+        reset($scope.filter.rating);
 
         for(var k in $scope.hasFilter)
             $scope.hasFilter[k] = false;
@@ -77,7 +93,8 @@ app.controller('draftPacketController', function($scope, $http) {
             return p.preference;
         }
         return $scope.filter.countries[player.country.code]
-            && $scope.filter.positions[getPosition(player.position)];
+            && $scope.filter.positions[getPosition(player.position)]
+            && $scope.filter.rating[Math.floor(player.rating)];
     };
 
     $scope.setHighlighter = function(h) {

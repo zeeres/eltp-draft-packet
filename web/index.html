@@ -71,13 +71,14 @@
                 </div>
             </div>
             <div class="dropright">
-                <a id="filter-btn-rating" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                <a ng-class="{'text-danger': hasFilter.rating}" id="filter-btn-rating" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     <i class="fas fa-star"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="filter-btn-rating">
-                    <a class="dropdown-item" href="#" ng-repeat="x in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]">
+                    <label class="dropdown-item form-check-label" href="#" ng-repeat="x in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.rating[x]" ng-change="updateFilterDisplays()" />
                         <stars rating="x"></stars>
-                    </a>
+                    </label>
                 </div>
             </div>
             <div class="dropright">
