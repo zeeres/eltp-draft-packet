@@ -21,6 +21,27 @@
     </head>
     <body ng-controller="draftPacketController">
         <div ng-if="loading" id="loading-overlay"></div>
+        <div id="filters" class="toolmenu toolmenu-collapsible">
+            <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
+                <i class="fas fa-times"></i>
+            </a>
+            <a href="#" title="Position" data-toggle="tooltip" data-placement="right">
+                OD
+            </a>
+            <a href="#" title="Nationality" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-flag"></i>
+            </a>
+            <a href="#" title="Rating" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-star"></i>
+            </a>
+            <a href="#" title="Highlighted" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-paint-brush"></i>
+            </a>
+            <div class="flex-filler"></div>
+            <a href="#" title="Reset" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </div>
         <div id="markers" class="toolmenu toolmenu-collapsible">
             <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
                 <i class="fas fa-times"></i>
@@ -39,7 +60,7 @@
             </a>
         </div>
         <div id="tools" class="toolmenu">
-            <a href="#" title="Filter" data-toggle="tooltip" data-placement="right">
+            <a href="#" title="Filter" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#filters')">
                 <i class="fas fa-filter"></i>
             </a>
             <a href="#"title="Mark" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#markers')">

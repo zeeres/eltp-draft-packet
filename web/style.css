@@ -71,6 +71,7 @@ thead tr th {
 
 .toolmenu a:hover {
     background-color: #ddd;
+    text-decoration: none;
 }
 
 .flex-filler {
@@ -83,7 +84,7 @@ thead tr th {
     transition: left .5s;
 }
 
-#markers.open {
+.toolmenu.toolmenu-collapsible.open {
     left: 0;
 }
 
