@@ -193,6 +193,29 @@ thead tr th {
     font-style: normal;
 }
 
+.dropdown-menu-columns {
+    flex-flow: column wrap;
+    align-content: stretch;
+    align-items: stretch;
+    justify-content: flex-start;
+    max-height: 400px;
+    /* So an absolute flexbox can't properly size to fit its contents.
+     * If we don't do this, only the left column will have a background.
+     * Should we have a lot of different countries signing up, increase this
+     * by multiples of 250.
+     * I hate CSS.
+     */
+    min-width: 500px;
+}
+
+.dropdown-menu-columns.show {
+    display: flex;
+}
+
+.dropdown-menu-columns .dropdown-item {
+    width: 250px;
+}
+
 .loading-tr td::after {
     border: 2px solid #aaa;
     border-radius: 2px;

@@ -41,7 +41,7 @@
                 <a id="filter-btn-country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     <i class="fas fa-flag"></i>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="filter-btn-country">
+                <div class="dropdown-menu dropdown-menu-columns" aria-labelledby="filter-btn-country">
                     <a class="dropdown-item" href="#" ng-repeat="c in countries">
                         <span ng-class="['flag-icon', 'flag-icon-' + c]"></span>
                         {{ countryNames[c] }}
