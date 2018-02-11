@@ -138,7 +138,7 @@
                                 <td></td>
                                 <td class="hidden-xs"></td>
                             </tr>
-                            <tr ng-repeat="row in packet" ng-class="['hl-' + highlights[row.profile], {'table-active': selection == $index}]" ng-click="select($index)">
+                            <tr ng-repeat="row in packet" ng-if="matchFilter(row)" ng-class="['hl-' + highlights[row.profile], {'table-active': selection == $index}]" ng-click="select($index)">
                                 <td class="td-narrow">
                                     <span ng-class="['flag-icon', 'flag-icon-' + row.country.code]"></span>
                                 </td>

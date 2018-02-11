@@ -52,6 +52,10 @@ app.controller('draftPacketController', function($scope, $http) {
         $scope.updateFilterDisplays();
     };
 
+    $scope.matchFilter = function(player) {
+        return $scope.filter.countries[player.country.code];
+    };
+
     $scope.setHighlighter = function(h) {
         if($scope.highlighter === h)
             $scope.highlighter = '';
