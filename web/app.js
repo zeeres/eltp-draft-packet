@@ -36,6 +36,7 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.closeToolMenu = function() {
         $('[data-toggle=tooltip]').tooltip('hide');
         $('.toolmenu.toolmenu-collapsible.open').removeClass('open');
+        $scope.highlighter = '';
     };
 
     $scope.select = function(i) {

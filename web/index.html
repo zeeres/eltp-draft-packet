@@ -31,6 +31,12 @@
             <a href="#" class="highlighter highlighter-blue" ng-class="{'highlighter-active': highlighter==='blue'}" ng-click="setHighlighter('blue')"></a>
             <a href="#" class="highlighter highlighter-strikethrough" ng-class="{'highlighter-active': highlighter==='strikethrough'}" ng-click="setHighlighter('strikethrough')"></a>
             <div class="flex-filler"></div>
+            <a href="#" title="Remove highlights" data-toggle="tooltip" data-placement="right" ng-click="setHighlighter('erase')" ng-class="{'text-danger': highlighter==='erase'}">
+                <i class="fas fa-eraser"></i>
+            </a>
+            <a href="#" title="Reset" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-trash-alt"></i>
+            </a>
         </div>
         <div id="tools" class="toolmenu">
             <a href="#" title="Filter" data-toggle="tooltip" data-placement="right">
