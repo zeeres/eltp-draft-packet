@@ -121,3 +121,10 @@ app.directive('dailyavailability', function() {
                     '<span ng-if="available === 3" class="text-warning">Unsure</span>'
     };
 });
+
+// https://gist.github.com/jeffjohnson9046/9470800
+app.filter('percentage', ['$filter', function ($filter) {
+    return function (input, decimals) {
+        return $filter('number')(input * 100, decimals) + '%';
+    };
+}]);

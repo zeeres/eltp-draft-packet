@@ -84,6 +84,9 @@
                                     <li class="nav-item">
                                         <a id="nav-tab-availability-daily" class="nav-link" data-toggle="tab" role="tab" href="#tab-availability-daily" aria-controls="tab-availability-daily" aria-selected="false">Daily availability</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a id="nav-tab-stats" class="nav-link" data-toggle="tab" role="tab" href="#tab-stats" aria-controls="tab-stats" aria-selected="false">Stats</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="tab-content">
@@ -168,6 +171,18 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div id="tab-stats" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-stats">
+                                    <div class="player-info">
+                                        <div class="w50">
+                                            <strong>Current win rate:</strong>
+                                            {{ player.stats.rolling.current | percentage : 2 }}
+                                        </div>
+                                        <div class="w50">
+                                            <strong>Best win rate:</strong>
+                                            {{ player.stats.rolling.best | percentage : 2 }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
