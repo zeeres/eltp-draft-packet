@@ -168,6 +168,10 @@ thead tr th {
     background-color: #ddd;
 }
 
+.flex-filler {
+    flex-grow: 1;
+}
+
 .flair {
     background-image: url(//tagpro-chord.koalabeast.com/images/flair.png);
     background-position: 1000px 1000px;
