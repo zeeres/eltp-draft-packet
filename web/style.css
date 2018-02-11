@@ -114,10 +114,14 @@ thead tr th {
 }
 
 .player-info {
-    display: flex;
     flex-flow: row wrap;
     margin-right: -3px;
     margin-bottom: -1px;
+    display: flex;
+}
+
+.player-info.tab-pane.active {
+    display: flex !important;
 }
 
 .player-info > div {
@@ -125,7 +129,8 @@ thead tr th {
     padding: .75rem 1.25rem;
     border-bottom: 1px solid #dee2e6;
     border-right: 1px solid #dee2e6;
-    margin: 0 -2px;
+    align-self: stretch;
+    vertical-align: middle;
 }
 
 .w25 {width: 25%;}
