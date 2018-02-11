@@ -27,6 +27,24 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.countries = [];
     $scope.countryNames = {};
 
+    $scope.filter = {
+        countries: {'': true}
+    };
+
+    $scope.hasFilter = {
+        any: false,
+        countries: false
+    };
+
+    $scope.updateFilterDisplays = function() {
+        $scope.hasFilter.countries = false;
+        for(var k in $scope.filter.countries)
+            if(!$scope.filter.countries[k])
+                $scope.hasFilter.countries = true;
+
+        $scope.hasFilter.any = $scope.hasFilter.countries;
+    };
+
     $scope.setHighlighter = function(h) {
         if($scope.highlighter === h)
             $scope.highlighter = '';
@@ -136,6 +154,7 @@ app.controller('draftPacketController', function($scope, $http) {
                 countryCounts[c]++;
 
             $scope.countryNames[c] = row.country.name;
+            $scope.filter.countries[c] = true;
         }
 
         $scope.countries = Object.keys(countryCounts).sort((x, y) => countryCounts[y] - countryCounts[x]);

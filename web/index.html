@@ -38,18 +38,18 @@
                 </div>
             </div>
             <div class="dropright">
-                <a id="filter-btn-country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                <a ng-class="{'text-danger': hasFilter.countries}" id="filter-btn-country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     <i class="fas fa-flag"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-columns" aria-labelledby="filter-btn-country">
                     <label class="dropdown-item form-check-label" ng-repeat="c in countries">
-                        <input type="checkbox" class="form-check-input" />
+                        <input type="checkbox" class="form-check-input" ng-model="filter.countries[c]" ng-change="updateFilterDisplays()" />
                         <span ng-class="['flag-icon', 'flag-icon-' + c]"></span>
                         {{ countryNames[c] }}
                     </label>
                     <div class="dropdown-divider"></div>
                     <label class="dropdown-item form-check-label">
-                        <input type="checkbox" class="form-check-input" />
+                        <input type="checkbox" class="form-check-input" ng-model="filter.countries['']" ng-change="updateFilterDisplays()" />
                         <span class="flag-icon"></span>
                         Other
                     </label>
@@ -100,7 +100,7 @@
             </a>
         </div>
         <div id="tools" class="toolmenu">
-            <a href="#" title="Filter" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#filters')">
+            <a ng-class="{'text-danger': hasFilter.any}" href="#" title="Filter" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#filters')">
                 <i class="fas fa-filter"></i>
             </a>
             <a href="#"title="Mark" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#markers')">
