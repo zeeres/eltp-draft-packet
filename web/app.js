@@ -17,6 +17,17 @@ app.controller('draftPacketController', function($scope, $http) {
 
     $scope.weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+    $scope.highlighter = '';
+
+    $scope.setHighlighter = function(h) {
+        if($scope.highlighter === h)
+            $scope.highlighter = '';
+        else
+            $scope.highlighter = h;
+
+        console.log($scope.highlighter);
+    };
+
     $scope.openToolMenu = function(selector) {
         $('[data-toggle=tooltip]').tooltip('hide');
         $(selector).addClass('open');
