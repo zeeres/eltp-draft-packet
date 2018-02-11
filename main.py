@@ -73,6 +73,12 @@ packet = []
 for i, r in enumerate(rows[1:]):
     packet.append(process_row(r, ratings[i]))
 
+print('Reading player comments...')
+sheet = gc.open_by_key(sheet_comments).get_worksheet(0)
+for i, x in enumerate(sheet.col_values(1)[1:]):
+    if x:
+        packet[i]['rating_comment'] = x
+
 print('Sorting the packet...')
 packet = sorted(packet, key=lambda r: -r['rating'])
 load_profiles(packet)

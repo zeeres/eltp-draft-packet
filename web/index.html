@@ -137,6 +137,9 @@
                                     <div ng-if="player.comment !== ''" class="w100">
                                         {{ player.comment }}
                                     </div>
+                                    <div ng-if="player.hasOwnProperty('rating_comment')" class="w100">
+                                        {{ player.rating_comment }}
+                                    </div>
                                 </div>
                                 <div id="tab-availability-weekly" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-weekly">
                                     <div class="card-body">
