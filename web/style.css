@@ -44,7 +44,7 @@ thead tr th {
     margin-top: 2em;
 }
 
-#tools {
+.toolmenu {
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -52,11 +52,13 @@ thead tr th {
     position: absolute;
     left: 0;
     top: 0;
+    width: 64px;
     height: 100%;
     flex-flow: column nowrap;
+    background-color: inherit;
 }
 
-#tools a {
+.toolmenu a {
     font-size: 2em;
     color: #bbb;
     width: 64px;
@@ -66,12 +68,22 @@ thead tr th {
     align-items: center;
 }
 
-#tools a:hover {
+.toolmenu a:hover {
     background-color: #ddd;
 }
 
 .flex-filler {
     flex-grow: 1;
+}
+
+.toolmenu.toolmenu-collapsible {
+    left: -64px;
+    z-index: 1;
+    transition: left .5s;
+}
+
+#markers.open {
+    left: 0;
 }
 
 @media (max-width: 768px) {
@@ -100,11 +112,26 @@ thead tr th {
         height: 0;
     }
 
-    #tools {
+    .toolmenu {
         flex-flow: row nowrap;
         z-index: 15;
         width: 100%;
         height: auto;
+    }
+
+    .toolmenu.toolmenu-collapsible {
+        top: -64px;
+        left: 0;
+        transition: top .5s;
+        z-index: 16;
+    }
+
+    .toolmenu.toolmenu-collapsible.open {
+        top: 0;
+    }
+
+    .toolmenu-close {
+        order: 99;
     }
 
     .hidden-xs {display: none;}

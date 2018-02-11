@@ -17,6 +17,16 @@ app.controller('draftPacketController', function($scope, $http) {
 
     $scope.weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+    $scope.openToolMenu = function(selector) {
+        $('[data-toggle=tooltip]').tooltip('hide');
+        $(selector).addClass('open');
+    };
+
+    $scope.closeToolMenu = function() {
+        $('[data-toggle=tooltip]').tooltip('hide');
+        $('.toolmenu.toolmenu-collapsible.open').removeClass('open');
+    };
+
     $scope.select = function(i) {
         if(i === $scope.selection)
             i = -1;
