@@ -137,6 +137,11 @@ thead tr th {
 .w50 {width: 50%;}
 .w100 {width: 100%;}
 
+.align-right {
+    text-align: right;
+    padding-right: 1em !important;
+}
+
 .flair {
     background-image: url(//tagpro-chord.koalabeast.com/images/flair.png);
     background-position: 1000px 1000px;

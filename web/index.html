@@ -124,11 +124,11 @@
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>
-                                                <th>Week</th>
+                                                <th class="align-right">Week</th>
                                                 <th>S</th>
                                                 <th>M</th>
                                                 <th>T</th>
-                                                <th>Week</th>
+                                                <th class="align-right">Week</th>
                                                 <th>S</th>
                                                 <th>M</th>
                                                 <th>T</th>
@@ -136,11 +136,11 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="week in weekly_availability">
-                                                <td>{{ weeknames[$index].first }}</td>
+                                                <td class="align-right">{{ weeknames[$index].first }}</td>
                                                 <td><availability available="week.first[0]"></availability></td>
                                                 <td><availability available="week.first[1]"></availability></td>
                                                 <td><availability available="week.first[2]"></availability></td>
-                                                <td>{{ weeknames[$index].second }}</td>
+                                                <td class="align-right">{{ weeknames[$index].second }}</td>
                                                 <td><availability available="week.second[0]"></availability></td>
                                                 <td><availability available="week.second[1]"></availability></td>
                                                 <td><availability available="week.second[2]"></availability></td>
