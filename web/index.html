@@ -25,7 +25,7 @@
             <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
                 <i class="fas fa-times"></i>
             </a>
-            <a ng-class="{'text-danger': exp_filter}" href="#" title="Apply current filter" data-toggle="tooltip" data-placement="right" ng-click="exp_filter = !exp_filter">
+            <a ng-class="{'text-danger': ex_filter}" href="#" title="Apply current filter" data-toggle="tooltip" data-placement="right" ng-click="ex_filter = !ex_filter">
                 <i class="fas fa-filter"></i>
             </a>
             <div class="dropright">
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="flex-filler"></div>
-            <a href="#" title="Download" data-toggle="tooltip" data-placement="right">
+            <a href="#" title="Download" data-toggle="tooltip" data-placement="right" ng-click="download()">
                 <i class="fas fa-download"></i>
             </a>
         </div>

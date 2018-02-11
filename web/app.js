@@ -244,7 +244,7 @@ app.controller('draftPacketController', function($scope, $http) {
 
     $scope.ex_filter = true;
     $scope.ex_columns = [
-        {name: 'highlight', title: 'Highlight', active: false, f: player => $scope.highlights[player.profile]},
+        {name: 'highlight', title: 'Highlight', active: false, f: player => $scope.highlights[player.profile] || ''},
         {name: 'name', title: 'Name', active: true, f: player => player.name},
         {name: 'profile', title: 'Profile Link', active: false, f: player => 'http://tagpro-chord.koalabeast.com/profile/' + player.profile},
         {name: 'reddit', title: 'Reddit', active: true, f: player => player.reddit},
@@ -257,12 +257,12 @@ app.controller('draftPacketController', function($scope, $http) {
         {name: 'availability_comment', title: 'Availability Comment', active: true, f: player => player.availability.comment},
         {name: 'extra_information', title: 'Extra Information', active: true, f: player => player.comment},
         {name: 'comment', title: 'Rating Comment', active: false, f: player => player.rating_comment || ''},
-        {name: 'winrate_current', title: 'Current Win Rate', active: false, f: player => player.stats.winrate.current},
-        {name: 'winrate_best', title: 'Best Win Rate', active: false, f: player => player.stats.winrate.best},
+        {name: 'winrate_current', title: 'Current Win Rate', active: false, f: player => player.stats.rolling.current},
+        {name: 'winrate_best', title: 'Best Win Rate', active: false, f: player => player.stats.rolling.best},
     ];
     $scope.ex_formats = [
-        {ext: 'csv', title: 'Comma-separated values (csv)'},
-        {ext: 'tsv', title: 'Tab-separated values (tsv)'}
+        {ext: 'csv', title: 'Comma-separated values (csv)', sep: ','},
+        {ext: 'tsv', title: 'Tab-separated values (tsv)', sep: '\t'}
     ];
 
     $scope.ex_format = 0;
@@ -274,6 +274,42 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.ex_setFormat = function(x) {
         $scope.ex_format = x;
     };
+
+    $scope.download = function() {
+        var fmt = $scope.ex_formats[$scope.ex_format];
+        var data = '';
+
+        var cols = $scope.ex_columns.filter(c => c.active),
+            rows = $scope.ex_filter
+                ? $scope.packet.filter($scope.matchFilter)
+                : $scope.packet;
+
+        function formatCell(x) {
+            if(typeof(x) !== 'string')
+                return '' + x;
+            x = x.replace(/"/g, '\\"');
+            if(x.indexOf(fmt.ext) !== -1)
+                return '"' + x + '"';
+            return x;
+        }
+
+        data += cols.map(c => c.name).map(formatCell).join(fmt.sep) + '\n';
+        for(var row of rows) {
+            var r = [];
+            for(var c of cols)
+                r.push(c.f(row));
+            data += r.map(formatCell).join(fmt.sep) + '\n';
+        }
+
+        // Download it!
+        var el = document.createElement('a');
+        el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+        el.setAttribute('download', 'packet.' + fmt.ext);
+        el.style.display = 'none';
+        document.body.appendChild(el);
+        el.click();
+        document.body.removeChild(el);
+    }
 });
 
 app.directive('availability', function() {
