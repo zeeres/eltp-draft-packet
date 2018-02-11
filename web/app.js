@@ -27,6 +27,11 @@ app.controller('draftPacketController', function($scope, $http) {
             $scope.highlighter = h;
     };
 
+    $scope.resetHighlights = function() {
+        $scope.highlights = {};
+        localStorage.setItem('highlights', JSON.stringify($scope.highlights));
+    };
+
     $scope.openToolMenu = function(selector) {
         $('[data-toggle=tooltip]').tooltip('hide');
         $(selector).addClass('open');
@@ -39,6 +44,8 @@ app.controller('draftPacketController', function($scope, $http) {
     };
 
     $scope.select = function(i) {
+        $('#packet-container').popover('hide');
+
         if($scope.highlighter !== '') {
             var player = $scope.packet[i].profile;
 
@@ -53,8 +60,6 @@ app.controller('draftPacketController', function($scope, $http) {
 
         if(i === $scope.selection)
             i = -1;
-
-        $('#packet-container').popover('hide');
 
         $scope.selection = i;
         if(i >= 0) {
