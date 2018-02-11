@@ -3,7 +3,7 @@ var app = angular.module('draftPacketApp', []);
 $(document).ready(function() {
     $('[data-toggle=tooltip]').tooltip({trigger: 'hover'});
 
-    $('.dropdown-menu').click(function(e) {
+    $('.dropdown-menu:not(.close-on-click)').click(function(e) {
         e.stopPropagation();
     });
 });
@@ -240,6 +240,40 @@ app.controller('draftPacketController', function($scope, $http) {
             'offset': '0px 20px'
         }).popover('show');
     });
+
+
+    $scope.ex_filter = true;
+    $scope.ex_columns = [
+        {name: 'highlight', title: 'Highlight', active: false, f: player => $scope.highlights[player.profile]},
+        {name: 'name', title: 'Name', active: true, f: player => player.name},
+        {name: 'profile', title: 'Profile Link', active: false, f: player => 'http://tagpro-chord.koalabeast.com/profile/' + player.profile},
+        {name: 'reddit', title: 'Reddit', active: true, f: player => player.reddit},
+        {name: 'position', title: 'Position', active: true, f: player => $scope.format_position(player.position)},
+        {name: 'rating', title: 'Rating', active: true, f: player => player.rating},
+        {name: 'country', title: 'Country', active: false, f: player => player.country.name},
+        {name: 'chord', title: 'Chord Ping', active: false, f: player => player.ping.chord},
+        {name: 'orbit', title: 'Orbit Ping', active: false, f: player => player.ping.orbit},
+        {name: 'microphone', title: 'Microphone', active: true, f: player => player.microphone ? 'Yes' : 'No'},
+        {name: 'availability_comment', title: 'Availability Comment', active: true, f: player => player.availability.comment},
+        {name: 'extra_information', title: 'Extra Information', active: true, f: player => player.comment},
+        {name: 'comment', title: 'Rating Comment', active: false, f: player => player.rating_comment || ''},
+        {name: 'winrate_current', title: 'Current Win Rate', active: false, f: player => player.stats.winrate.current},
+        {name: 'winrate_best', title: 'Best Win Rate', active: false, f: player => player.stats.winrate.best},
+    ];
+    $scope.ex_formats = [
+        {ext: 'csv', title: 'Comma-separated values (csv)'},
+        {ext: 'tsv', title: 'Tab-separated values (tsv)'}
+    ];
+
+    $scope.ex_format = 0;
+
+    $scope.ex_selectX = function(v) {
+        for(var x of $scope.ex_columns)
+            x.active = v;
+    };
+    $scope.ex_setFormat = function(x) {
+        $scope.ex_format = x;
+    };
 });
 
 app.directive('availability', function() {

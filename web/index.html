@@ -21,6 +21,42 @@
     </head>
     <body ng-controller="draftPacketController">
         <div ng-if="loading" id="loading-overlay"></div>
+        <div id="export" class="toolmenu toolmenu-collapsible">
+            <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
+                <i class="fas fa-times"></i>
+            </a>
+            <a ng-class="{'text-danger': exp_filter}" href="#" title="Apply current filter" data-toggle="tooltip" data-placement="right" ng-click="exp_filter = !exp_filter">
+                <i class="fas fa-filter"></i>
+            </a>
+            <div class="dropright">
+                <a id="export-btn-columns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="fas fa-columns"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-columns" aria-labelledby="export-btn-columns">
+                    <label class="dropdown-item form-check-label" ng-repeat="column in ex_columns">
+                        <input type="checkbox" class="form-check-input" ng-model="column.active" />
+                        {{ column.title }}
+                    </label>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" ng-click="ex_selectX(true)">Select all</a>
+                    <a class="dropdown-item" href="#" ng-click="ex_selectX(false)">Select none</a>
+                </div>
+            </div>
+            <div class="dropright">
+                <a id="export-btn-format" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                    <small>.{{ ex_formats[ex_format].ext }}</small>
+                </a>
+                <div class="dropdown-menu close-on-click" aria-labelledby="export-btn-format">
+                    <a ng-repeat="format in ex_formats" class="dropdown-item" href="#" ng-click="ex_setFormat($index)">
+                        {{ format.title }}
+                    </a>
+                </div>
+            </div>
+            <div class="flex-filler"></div>
+            <a href="#" title="Download" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-download"></i>
+            </a>
+        </div>
         <div id="filters" class="toolmenu toolmenu-collapsible">
             <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
                 <i class="fas fa-times"></i>
@@ -154,7 +190,7 @@
             <a href="#"title="Mark" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#markers')">
                 <i class="fas fa-paint-brush"></i>
             </a>
-            <a href="#" title="Export" data-toggle="tooltip" data-placement="right">
+            <a href="#" title="Export" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#export')">
                 <i class="fas fa-share-square"></i>
             </a>
             <div class="flex-filler"></div>
