@@ -20,6 +20,9 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.highlighter = '';
     $scope.highlights = JSON.parse(localStorage.getItem('highlights') || '{}');
 
+    $scope.countries = [];
+    $scope.countryNames = {};
+
     $scope.setHighlighter = function(h) {
         if($scope.highlighter === h)
             $scope.highlighter = '';
@@ -114,6 +117,25 @@ app.controller('draftPacketController', function($scope, $http) {
 
     $http.get('packet.json').then(data => {
         $scope.packet = data.data;
+
+        var countryCounts = {};
+        
+        for(var row of data.data) {
+            var c = row.country.code;
+
+            if(c === '')
+                continue;
+
+            if(!(c in countryCounts))
+                countryCounts[c] = 1;
+            else
+                countryCounts[c]++;
+
+            $scope.countryNames[c] = row.country.name;
+        }
+
+        $scope.countries = Object.keys(countryCounts).sort((x, y) => countryCounts[y] - countryCounts[x]);
+
         $scope.loading = false;
 
         $('#packet-container').popover({

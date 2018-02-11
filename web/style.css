@@ -58,7 +58,7 @@ thead tr th {
     background-color: inherit;
 }
 
-.toolmenu a {
+.toolmenu > a, .toolmenu > .dropright > a {
     font-size: 2em;
     color: #bbb;
     width: 64px;

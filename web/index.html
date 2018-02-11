@@ -25,18 +25,53 @@
             <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
                 <i class="fas fa-times"></i>
             </a>
-            <a href="#" title="Position" data-toggle="tooltip" data-placement="right">
-                OD
-            </a>
-            <a href="#" title="Nationality" data-toggle="tooltip" data-placement="right">
-                <i class="fas fa-flag"></i>
-            </a>
-            <a href="#" title="Rating" data-toggle="tooltip" data-placement="right">
-                <i class="fas fa-star"></i>
-            </a>
-            <a href="#" title="Highlighted" data-toggle="tooltip" data-placement="right">
-                <i class="fas fa-paint-brush"></i>
-            </a>
+            <div class="dropright">
+                <a id="filter-btn-position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                    OD
+                </a>
+                <div class="dropdown-menu" aria-labelledby="filter-btn-position">
+                    <a class="dropdown-item" href="#">Offence only</a>
+                    <a class="dropdown-item" href="#">Offence preferred</a>
+                    <a class="dropdown-item" href="#">Either</a>
+                    <a class="dropdown-item" href="#">Defence preferred</a>
+                    <a class="dropdown-item" href="#">Defence only</a>
+                </div>
+            </div>
+            <div class="dropright">
+                <a id="filter-btn-country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="fas fa-flag"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="filter-btn-country">
+                    <a class="dropdown-item" href="#" ng-repeat="c in countries">
+                        <span ng-class="['flag-icon', 'flag-icon-' + c]"></span>
+                        {{ countryNames[c] }}
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><span class="flag-icon"></span>Other</a>
+                </div>
+            </div>
+            <div class="dropright">
+                <a id="filter-btn-rating" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="fas fa-star"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="filter-btn-rating">
+                    <a class="dropdown-item" href="#" ng-repeat="x in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]">
+                        <stars rating="x"></stars>
+                    </a>
+                </div>
+            </div>
+            <div class="dropright">
+                <a id="filter-btn-highlight" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="fas fa-paint-brush"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="filter-btn-highlight">
+                    <a class="dropdown-item hl-red" href="#">&nbsp;</a>
+                    <a class="dropdown-item hl-yellow" href="#">&nbsp;</a>
+                    <a class="dropdown-item hl-green" href="#">&nbsp;</a>
+                    <a class="dropdown-item hl-blue" href="#">&nbsp;</a>
+                    <a class="dropdown-item hl-strikethrough" href="#">strikethrough</a>
+                </div>
+            </div>
             <div class="flex-filler"></div>
             <a href="#" title="Reset" data-toggle="tooltip" data-placement="right">
                 <i class="fas fa-trash-alt"></i>
