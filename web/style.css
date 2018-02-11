@@ -137,6 +137,52 @@ thead tr th {
     .hidden-xs {display: none;}
 }
 
+.highlighter::after {
+    display: inline-block;
+    content: '';
+    border: 1px solid #888;
+    border-radius: 4px;
+    background-color: white;
+
+    width: 40px;
+    height: 40px;
+}
+
+.highlighter-red::after {
+    background-color: rgb(255, 128, 128);
+}
+
+.highlighter-yellow::after {
+    background-color: rgb(255, 255, 128);
+}
+
+.highlighter-green::after {
+    background-color: rgb(128, 255, 128);
+}
+
+.highlighter-green::after {
+    background-color: rgb(128, 255, 128);
+}
+
+.highlighter-blue::after {
+    background-color: rgb(128, 192, 255);
+}
+
+.highlighter:hover {
+    text-decoration: none;
+}
+
+.highlighter-strikethrough::after {
+    content: 'Aa';
+    font-size: 0.75em;
+    font-family: serif;
+    font-style: italic;
+    text-decoration: line-through;
+    color: #222;
+    vertical-align: middle;
+    text-align: center;
+}
+
 .loading-tr td::after {
     border: 2px solid #aaa;
     border-radius: 2px;
