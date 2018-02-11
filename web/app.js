@@ -45,6 +45,13 @@ app.controller('draftPacketController', function($scope, $http) {
         $scope.hasFilter.any = $scope.hasFilter.countries;
     };
 
+    $scope.resetFilters = function() {
+        for(var k in $scope.filter.countries)
+            $scope.filter.countries[k] = true;
+
+        $scope.updateFilterDisplays();
+    };
+
     $scope.setHighlighter = function(h) {
         if($scope.highlighter === h)
             $scope.highlighter = '';
