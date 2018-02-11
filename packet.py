@@ -67,7 +67,7 @@ def fix_reddit(name):
 def fix_country(country):
     country_ = country.lower().strip()
 
-    if country_ == 'the netherlands':
+    if country_ in ('the netherlands', 'dutchlandistan'):  # thanks poukie
         country_ = 'netherlands'
 
     if country_ in ('england', 'scotland', 'wales', 'northern ireland',
@@ -75,26 +75,31 @@ def fix_country(country):
         country_ = 'united kingdom'
 
     if country_ in ('us', 'usa', 'united states of america', 'america') or\
-            'america' in country_:  # sorry
+            'america' in country_ or 'murica' in country_:  # sorry
         country_ = 'united states'
 
     c = None
-    country_ = country_.title()
 
-    # I'm so sorry
-    try:
-        c = pycountry.countries.get(name=country_)
-    except KeyError:
+    def try_find_country(c):
+        # I'm so sorry
         try:
-            c = pycountry.countries.get(official_name=country_)
+            return pycountry.countries.get(name=c)
         except KeyError:
             try:
-                c = pycountry.countries.get(alpha_2=country_)
+                return pycountry.countries.get(official_name=c)
             except KeyError:
                 try:
-                    c = pycountry.countries.get(alpha_3=country_)
+                    return pycountry.countries.get(alpha_2=c)
                 except KeyError:
-                    pass
+                    try:
+                        return pycountry.countries.get(alpha_3=c)
+                    except KeyError:
+                        return None
+
+    c = try_find_country(country_.title().replace('And', 'and'))
+
+    if c is None:
+        c = try_find_country(country)
 
     if c is None:
         # We tried
