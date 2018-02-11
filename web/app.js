@@ -2,6 +2,10 @@ var app = angular.module('draftPacketApp', []);
 
 $(document).ready(function() {
     $('[data-toggle=tooltip]').tooltip({trigger: 'hover'});
+
+    $('.dropdown-menu').click(function(e) {
+        e.stopPropagation();
+    });
 });
 
 app.controller('draftPacketController', function($scope, $http) {
