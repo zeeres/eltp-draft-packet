@@ -136,6 +136,11 @@ thead tr th {
         order: 99;
     }
 
+    .dropdown-menu-columns {
+        max-height: unset !important;
+        min-width: unset !important;
+    }
+
     .hidden-xs {display: none;}
 }
 
