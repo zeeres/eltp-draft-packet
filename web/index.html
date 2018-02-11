@@ -50,6 +50,9 @@
                         <input type="checkbox" class="form-check-input" ng-model="filter.positions['d']" ng-change="updateFilterDisplays()" />
                         Defence only
                     </label>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" ng-click="selectX(filter.positions, true)">Select all</a>
+                    <a class="dropdown-item" href="#" ng-click="selectX(filter.positions, false)">Select none</a>
                 </div>
             </div>
             <div class="dropright">
@@ -68,6 +71,9 @@
                         <span class="flag-icon"></span>
                         Other
                     </label>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" ng-click="selectX(filter.countries, true)">Select all</a>
+                    <a class="dropdown-item" href="#" ng-click="selectX(filter.countries, false)">Select none</a>
                 </div>
             </div>
             <div class="dropright">
@@ -79,6 +85,9 @@
                         <input type="checkbox" class="form-check-input" ng-model="filter.rating[x]" ng-change="updateFilterDisplays()" />
                         <stars rating="x"></stars>
                     </label>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" ng-click="selectX(filter.rating, true)">Select all</a>
+                    <a class="dropdown-item" href="#" ng-click="selectX(filter.rating, false)">Select none</a>
                 </div>
             </div>
             <div class="dropright">
@@ -111,6 +120,9 @@
                         <input type="checkbox" class="form-check-input" ng-model="filter.highlight['']" ng-change="updateFilterDisplays()" />
                         No highlight
                     </label>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" ng-click="selectX(filter.highlight, true)">Select all</a>
+                    <a class="dropdown-item" href="#" ng-click="selectX(filter.highlight, false)">Select none</a>
                 </div>
             </div>
             <div class="flex-filler"></div>

@@ -66,6 +66,12 @@ app.controller('draftPacketController', function($scope, $http) {
         highlight: false
     };
 
+    $scope.selectX = function(o, v) {
+        for(var k in o)
+            o[k] = v;
+        $scope.updateFilterDisplays();
+    };
+
     $scope.updateFilterDisplays = function() {
         function check(o) {
             for(var k in o)
