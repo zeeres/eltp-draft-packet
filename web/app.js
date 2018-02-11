@@ -6,6 +6,8 @@ $(document).ready(function() {
     $('.dropdown-menu:not(.close-on-click)').click(function(e) {
         e.stopPropagation();
     });
+
+    $('#packet, #selected-player-overview, .toolmenu').show();
 });
 
 app.controller('draftPacketController', function($scope, $http) {
