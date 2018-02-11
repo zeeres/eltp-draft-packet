@@ -66,6 +66,7 @@ thead tr th {
     display: flex;
     justify-content: center;
     align-items: center;
+    outline: 0;
 }
 
 .toolmenu a:hover {

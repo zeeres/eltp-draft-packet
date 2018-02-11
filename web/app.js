@@ -1,7 +1,7 @@
 var app = angular.module('draftPacketApp', []);
 
 $(document).ready(function() {
-    $('[data-toggle=tooltip]').tooltip();
+    $('[data-toggle=tooltip]').tooltip({trigger: 'hover'});
 });
 
 app.controller('draftPacketController', function($scope, $http) {
