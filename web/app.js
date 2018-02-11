@@ -18,14 +18,13 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
     $scope.highlighter = '';
+    $scope.highlights = JSON.parse(localStorage.getItem('highlights') || '{}');
 
     $scope.setHighlighter = function(h) {
         if($scope.highlighter === h)
             $scope.highlighter = '';
         else
             $scope.highlighter = h;
-
-        console.log($scope.highlighter);
     };
 
     $scope.openToolMenu = function(selector) {
@@ -40,6 +39,18 @@ app.controller('draftPacketController', function($scope, $http) {
     };
 
     $scope.select = function(i) {
+        if($scope.highlighter !== '') {
+            var player = $scope.packet[i].profile;
+
+            if($scope.highlighter === 'erase')
+                delete $scope.highlights[player];
+            else
+                $scope.highlights[player] = $scope.highlighter;
+
+            localStorage.setItem('highlights', JSON.stringify($scope.highlights));
+            return;
+        }
+
         if(i === $scope.selection)
             i = -1;
 

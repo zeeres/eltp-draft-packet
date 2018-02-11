@@ -153,24 +153,24 @@ thead tr th {
     color: #222;
 }
 
-.highlighter-red::after {
-    background-color: rgb(255, 128, 128);
+.highlighter-red::after, .hl-red {
+    background-color: rgb(255, 128, 128) !important;
 }
 
-.highlighter-yellow::after {
-    background-color: rgb(255, 255, 128);
+.highlighter-yellow::after, .hl-yellow {
+    background-color: rgb(255, 255, 128) !important;
 }
 
-.highlighter-green::after {
-    background-color: rgb(128, 255, 128);
+.highlighter-green::after, .hl-green {
+    background-color: rgb(128, 255, 128) !important;
 }
 
-.highlighter-green::after {
-    background-color: rgb(128, 255, 128);
+.highlighter-blue::after, .hl-blue {
+    background-color: rgb(128, 192, 255) !important;
 }
 
-.highlighter-blue::after {
-    background-color: rgb(128, 192, 255);
+.hl-strikethrough {
+    text-decoration: line-through !important;
 }
 
 .highlighter:hover {
