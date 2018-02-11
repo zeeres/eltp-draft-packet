@@ -309,7 +309,7 @@ app.controller('draftPacketController', function($scope, $http) {
         document.body.appendChild(el);
         el.click();
         document.body.removeChild(el);
-    }
+    };
 });
 
 app.directive('availability', function() {
