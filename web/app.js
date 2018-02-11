@@ -1,5 +1,9 @@
 var app = angular.module('draftPacketApp', []);
 
+$(document).ready(function() {
+    $('[data-toggle=tooltip]').tooltip();
+});
+
 app.controller('draftPacketController', function($scope, $http) {
     $scope.packet = [];
     $scope.loading = true;

@@ -21,6 +21,17 @@
     </head>
     <body ng-controller="draftPacketController">
         <div ng-if="loading" id="loading-overlay"></div>
+        <div id="tools">
+            <a href="#" title="Filter" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-filter"></i>
+            </a>
+            <a href="#" title="Mark" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-thumbtack"></i>
+            </a>
+            <a href="#" title="Export" data-toggle="tooltip" data-placement="right">
+                <i class="fas fa-share-square"></i>
+            </a>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6" id="packet-container">
