@@ -28,32 +28,56 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.countryNames = {};
 
     $scope.filter = {
-        countries: {'': true}
+        countries: {'': true},
+        positions: {
+            'o': true,
+            'o?': true,
+            '?': true,
+            'd?': true,
+            'd': true
+        }
     };
 
     $scope.hasFilter = {
         any: false,
-        countries: false
+        countries: false,
+        positions: false
     };
 
     $scope.updateFilterDisplays = function() {
-        $scope.hasFilter.countries = false;
-        for(var k in $scope.filter.countries)
-            if(!$scope.filter.countries[k])
-                $scope.hasFilter.countries = true;
+        function check(o) {
+            for(var k in o)
+                if(!o[k])
+                    return true;
+            return false;
+        }
+        $scope.hasFilter.countries = check($scope.filter.countries);
+        $scope.hasFilter.positions = check($scope.filter.positions);
 
-        $scope.hasFilter.any = $scope.hasFilter.countries;
+        $scope.hasFilter.any = $scope.hasFilter.countries
+                            || $scope.hasFilter.positions;
     };
 
     $scope.resetFilters = function() {
-        for(var k in $scope.filter.countries)
-            $scope.filter.countries[k] = true;
+        function reset(o) {
+            for(var k in o)
+                o[k] = true;
+        }
+        reset($scope.filter.countries);
+        reset($scope.filter.positions);
 
-        $scope.updateFilterDisplays();
+        for(var k in $scope.hasFilter)
+            $scope.hasFilter[k] = false;
     };
 
     $scope.matchFilter = function(player) {
-        return $scope.filter.countries[player.country.code];
+        function getPosition(p) {
+            if(p.primary !== '?')return p.primary;
+            if(p.preference !== '?')return p.preference + '?';
+            return p.preference;
+        }
+        return $scope.filter.countries[player.country.code]
+            && $scope.filter.positions[getPosition(player.position)];
     };
 
     $scope.setHighlighter = function(h) {

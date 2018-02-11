@@ -26,15 +26,30 @@
                 <i class="fas fa-times"></i>
             </a>
             <div class="dropright">
-                <a id="filter-btn-position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                <a ng-class="{'text-danger': hasFilter.positions}" id="filter-btn-position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     OD
                 </a>
                 <div class="dropdown-menu" aria-labelledby="filter-btn-position">
-                    <a class="dropdown-item" href="#">Offence only</a>
-                    <a class="dropdown-item" href="#">Offence preferred</a>
-                    <a class="dropdown-item" href="#">Either</a>
-                    <a class="dropdown-item" href="#">Defence preferred</a>
-                    <a class="dropdown-item" href="#">Defence only</a>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['o']" ng-change="updateFilterDisplays()" />
+                        Offence only
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['o?']" ng-change="updateFilterDisplays()" />
+                        Offence preferred
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['?']" ng-change="updateFilterDisplays()" />
+                        Either
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['d?']" ng-change="updateFilterDisplays()" />
+                        Defence perferred
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['d']" ng-change="updateFilterDisplays()" />
+                        Defence only
+                    </label>
                 </div>
             </div>
             <div class="dropright">
