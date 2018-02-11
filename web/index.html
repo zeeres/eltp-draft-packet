@@ -75,22 +75,42 @@
                     <i class="fas fa-star"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="filter-btn-rating">
-                    <label class="dropdown-item form-check-label" href="#" ng-repeat="x in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]">
+                    <label class="dropdown-item form-check-label" ng-repeat="x in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]">
                         <input type="checkbox" class="form-check-input" ng-model="filter.rating[x]" ng-change="updateFilterDisplays()" />
                         <stars rating="x"></stars>
                     </label>
                 </div>
             </div>
             <div class="dropright">
-                <a id="filter-btn-highlight" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                <a ng-class="{'text-danger': hasFilter.highlight}" id="filter-btn-highlight" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     <i class="fas fa-paint-brush"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="filter-btn-highlight">
-                    <a class="dropdown-item hl-red" href="#">&nbsp;</a>
-                    <a class="dropdown-item hl-yellow" href="#">&nbsp;</a>
-                    <a class="dropdown-item hl-green" href="#">&nbsp;</a>
-                    <a class="dropdown-item hl-blue" href="#">&nbsp;</a>
-                    <a class="dropdown-item hl-strikethrough" href="#">strikethrough</a>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.highlight['red']" ng-change="updateFilterDisplays()" />
+                        <div class="hl-red">&nbsp;</div>
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.highlight['yellow']" ng-change="updateFilterDisplays()" />
+                        <div class="hl-yellow">&nbsp;</div>
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.highlight['green']" ng-change="updateFilterDisplays()" />
+                        <div class="hl-green">&nbsp;</div>
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.highlight['blue']" ng-change="updateFilterDisplays()" />
+                        <div class="hl-blue">&nbsp;</div>
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.highlight['strikethrough']" ng-change="updateFilterDisplays()" />
+                        <div class="hl-strikethrough">Strikethrough</div>
+                    </label>
+                    <div class="dropdown-divider"></div>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.highlight['']" ng-change="updateFilterDisplays()" />
+                        No highlight
+                    </label>
                 </div>
             </div>
             <div class="flex-filler"></div>

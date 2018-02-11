@@ -47,6 +47,14 @@ app.controller('draftPacketController', function($scope, $http) {
             2: true,
             1: true,
             0: true
+        },
+        highlight: {
+            red: true,
+            yellow: true,
+            green: true,
+            blue: true,
+            strikethrough: true,
+            '': true
         }
     };
 
@@ -54,7 +62,8 @@ app.controller('draftPacketController', function($scope, $http) {
         any: false,
         countries: false,
         positions: false,
-        rating: false
+        rating: false,
+        highlight: false
     };
 
     $scope.updateFilterDisplays = function() {
@@ -67,10 +76,12 @@ app.controller('draftPacketController', function($scope, $http) {
         $scope.hasFilter.countries = check($scope.filter.countries);
         $scope.hasFilter.positions = check($scope.filter.positions);
         $scope.hasFilter.rating = check($scope.filter.rating);
+        $scope.hasFilter.highlight = check($scope.filter.highlight);
 
         $scope.hasFilter.any = $scope.hasFilter.countries
                             || $scope.hasFilter.positions
-                            || $scope.hasFilter.rating;
+                            || $scope.hasFilter.rating
+                            || $scope.hasFilter.highlight;
     };
 
     $scope.resetFilters = function() {
@@ -81,6 +92,7 @@ app.controller('draftPacketController', function($scope, $http) {
         reset($scope.filter.countries);
         reset($scope.filter.positions);
         reset($scope.filter.rating);
+        reset($scope.filter.highlight);
 
         for(var k in $scope.hasFilter)
             $scope.hasFilter[k] = false;
@@ -92,9 +104,11 @@ app.controller('draftPacketController', function($scope, $http) {
             if(p.preference !== '?')return p.preference + '?';
             return p.preference;
         }
+        var hl = $scope.highlights[player.profile] || '';
         return $scope.filter.countries[player.country.code]
             && $scope.filter.positions[getPosition(player.position)]
-            && $scope.filter.rating[Math.floor(player.rating)];
+            && $scope.filter.rating[Math.floor(player.rating)]
+            && $scope.filter.highlight[hl];
     };
 
     $scope.setHighlighter = function(h) {
