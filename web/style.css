@@ -28,6 +28,7 @@ body {
 
 #packet {
     background-color: white;
+    margin-bottom: 0;
 }
 
 thead {
@@ -43,6 +44,36 @@ thead tr th {
     margin-top: 2em;
 }
 
+#tools {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    flex-flow: column nowrap;
+}
+
+#tools a {
+    font-size: 2em;
+    color: #bbb;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#tools a:hover {
+    background-color: #ddd;
+}
+
+.flex-filler {
+    flex-grow: 1;
+}
+
 @media (max-width: 768px) {
     #selected-player-overview {
         position: fixed;
@@ -54,6 +85,26 @@ thead tr th {
         margin: 0;
         padding-top: 1em;
         background-color: rgba(0, 0, 0, 0.75);
+        z-index: 20;
+    }
+
+    #packet-container {
+        z-index: 10;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        height: calc(100% - 64px);
+    }
+
+    #right-panel {
+        height: 0;
+    }
+
+    #tools {
+        flex-flow: row nowrap;
+        z-index: 15;
+        width: 100%;
+        height: auto;
     }
 
     .hidden-xs {display: none;}
@@ -140,36 +191,6 @@ thead tr th {
 .align-right {
     text-align: right;
     padding-right: 1em !important;
-}
-
-#tools {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: stretch;
-}
-
-#tools a {
-    font-size: 2em;
-    color: #bbb;
-    width: 2em;
-    height: 2em;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-}
-
-#tools a:hover {
-    background-color: #ddd;
-}
-
-.flex-filler {
-    flex-grow: 1;
 }
 
 .flair {
