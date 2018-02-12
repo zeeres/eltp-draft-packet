@@ -243,6 +243,20 @@ app.controller('draftPacketController', function($scope, $http) {
         }).popover('show');
     });
 
+    $scope.keyboardNavigation = function(keyCode) {
+        switch(keyCode) {
+        case 38: // up
+            $scope.select($scope.selection - 1);
+            return true;
+
+        case 40: // down
+            $scope.select($scope.selection + 1);
+            return true;
+        }
+
+        return false;
+    };
+
 
     $scope.ex_filter = true;
     $scope.ex_columns = [

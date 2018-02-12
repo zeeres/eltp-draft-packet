@@ -19,7 +19,7 @@
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="app.js"></script>
     </head>
-    <body ng-controller="draftPacketController">
+    <body ng-controller="draftPacketController" ng-keydown="keyboardNavigation($event.keyCode) && $event.preventDefault()">
         <div ng-if="loading" id="loading-overlay"></div>
         <div id="export" class="toolmenu toolmenu-collapsible" style="display: none">
             <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
