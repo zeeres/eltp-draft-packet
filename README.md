@@ -21,16 +21,30 @@ python >=3.6, with the following packages (all can be installed using pip3):
 * requests
 * oauth2client
 
+To install the front-end, you will need nodejs and bower to install the dependencies.
+
 ## how to set up
 
 You will need:
 
+* one spreadsheet with sign-ups
+* any amount of spreadsheets (but at least 3 to see it) with ratings; these ratings should appear in the first column (excluding the top row) and be in the same order as the signups on the first sheet
+* one spreadsheet with comments, following the same format as the ratings sheets
 * google dev credentials that can use google drive and access your responses sheet
 * a web server with FTP store access
 
-First, upload the contents of the `web` folder to your web server.
+### installing the frontend
 
-The Python backend needs two files not present in this repo: `credentials.json` and `ftp.json`.
+Simply go into the `web` folder and install the dependencies:
+
+    cd web
+    bower install
+
+This may take a while. Once that's finished, transfer the entire contents of `web` (that is, including `bower_components`) to your web server.
+
+### setting up the backend
+
+The Python backend needs three files not present in this repo: `credentials.json`, `ftp.json` and `sheets.json`. Put these in the same folder as `main.py`, `packet.py` and `profiles.py`.
 
 `credentials.json` is the JSON OAuth2 credentials file you can download from the Google dev console, which looks something like this:
 
@@ -47,7 +61,7 @@ The Python backend needs two files not present in this repo: `credentials.json` 
       "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/draft-packet%40eltp-xxxxxx.iam.gserviceaccount.com"
     }
 
-Make sure you share your responses spreadsheet (in google drive) with the `client_email`. Doesn't matter if the sheet is public, it won't work unless you share it.
+Make sure you share all relevant spreadsheets (in google drive) with the `client_email`. Doesn't matter if the sheet is public, it won't work unless you share it.
 
 `ftp.json` contains credentials and a file path, something like this:
 
@@ -60,10 +74,29 @@ Make sure you share your responses spreadsheet (in google drive) with the `clien
 
 Make sure the `path` is the same place your static website already exists in.
 
-Run the script with a google spreadsheet key. The spreadsheet key can be found in the sheet URL (eg. http://docs.google.com/spreadsheets/d/XXXXX/edit where XXXXX is the key).
+`sheets.json` contains google spreadsheets keys (eg. XXXXX in https://docs.google.com/spreadsheets/d/XXXXX/edit) for responses, ratings and comments:
 
-    ./main.py <spreadsheet key>
+    {
+        "packet": "key1",
+        "ratings": [
+            "key2",
+            "key3"
+        ],
+        "comments": "key4"
+    }
 
-If everything goes correctly, this will generate the JSON packet and upload it to your web server in the place you chose.
+If all these files are present, you can try running the script:
 
-You'll want to set this up to run automagically every so often. TBA.
+    ./main.py
+
+This may take a minute, depending on how many ratings sheets you have. If everything goes correctly, you'll see some debug output and the script will finish. Open your browser and go to the place you have uploaded the front-end to - the draft packet should be there!
+
+If you want to set this up to run automagically every 15 minutes, you'll want to set up a cron job to do it. Create a file, anywhere, and name it `cron.txt` (or whatever). Put the following line in it:
+
+    0,15,30,45 * * * * /usr/local/bin/python3 /path/to/eltp-draft-packet/main.py >/dev/null
+
+Note that the `python3` path may also vary. You can find out by running `which python3` in your shell. Next, enable your cron job:
+
+    crontab cron.txt
+
+and that's it!
