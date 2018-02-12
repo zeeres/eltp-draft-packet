@@ -148,7 +148,7 @@ app.controller('draftPacketController', function($scope, $http) {
         if($scope.highlighter !== '') {
             var player = $scope.packet[i].profile;
 
-            if($scope.highlighter === 'erase')
+            if($scope.highlighter === 'erase' || $scope.highlights[player] === $scope.highlighter)
                 delete $scope.highlights[player];
             else
                 $scope.highlights[player] = $scope.highlighter;
@@ -256,6 +256,7 @@ app.controller('draftPacketController', function($scope, $http) {
                 return;
 
             $scope.select(i);
+            $('#player-' + i)[0].scrollIntoView({behavior: 'smooth'});
         }
 
         switch(keyCode) {
