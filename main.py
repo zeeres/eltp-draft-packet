@@ -6,13 +6,16 @@ from collections import defaultdict
 from ftplib import FTP
 import io
 import json
+import os
 
 from packet import process_row
 from profiles import load_profiles
 
+dirname = os.path.dirname(os.path.realpath(__file__))
+
 print('Loading GSheet keys...')
 
-with open('sheets.json') as f:
+with open(os.path.join(dirname, 'sheets.json')) as f:
     data = json.load(f)
     sheet_packet = data['packet']
     sheet_ratings = data['ratings']
@@ -22,7 +25,7 @@ print('Authorizing GSheets...')
 
 scope = ['https://spreadsheets.google.com/feeds']
 credentials = ServiceAccountCredentials.from_json_keyfile_name(
-    'credentials.json', scope)
+    os.path.join(dirname, 'credentials.json'), scope)
 gc = gspread.authorize(credentials)
 
 
@@ -86,7 +89,7 @@ raw = json.dumps(packet, separators=(',', ':'))
 
 print(f'Draft packet created with {len(packet)} rows')
 
-with open('ftp.json') as f:
+with open(os.path.join(dirname, 'ftp.json')) as f:
     data = json.load(f)
     host = data['host']
     user = data['user']
