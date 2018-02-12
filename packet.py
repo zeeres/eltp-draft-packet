@@ -27,7 +27,7 @@ def process_row(row, rating):
 
     return {
         'name': player_name,
-        'old_name': old_name,
+        'old_name': fix_old_name(old_name, player_name),
         'reddit': reddit_name,
         'profile': tagpro_id,
         'country': country,
@@ -50,6 +50,12 @@ def process_row(row, rating):
 
         'rating': rating.get_rating()
     }
+
+
+def fix_old_name(name, new_name):
+    if name.lower().strip() in ('no', 'no.', 'n/a', new_name.lower().strip()):
+        return ''
+    return name
 
 
 reddit_regex = re.compile(r'(/?u/)?(.*)')
