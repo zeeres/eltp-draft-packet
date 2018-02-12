@@ -14,11 +14,12 @@ The program is currently based on the signup format for season 11, so will proba
 
 ## requirements
 
-python3, with the following packages (can be installed using pip3):
+python >=3.6, with the following packages (all can be installed using pip3):
 
 * pycountry
 * gspread
-* gdata (i think)
+* requests
+* oauth2client
 
 ## how to set up
 
