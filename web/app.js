@@ -244,13 +244,27 @@ app.controller('draftPacketController', function($scope, $http) {
     });
 
     $scope.keyboardNavigation = function(keyCode) {
+        function scroll(d) {
+            var i = $scope.selection;
+
+            do {
+                i += d;
+            } while(i >= 0 && i < $scope.packet.length
+                 && !$scope.matchFilter($scope.packet[i]));
+            
+            if(i < 0 || i >= $scope.packet.length)
+                return;
+
+            $scope.select(i);
+        }
+
         switch(keyCode) {
         case 38: // up
-            $scope.select($scope.selection - 1);
+            scroll(-1);
             return true;
 
         case 40: // down
-            $scope.select($scope.selection + 1);
+            scroll(1);
             return true;
         }
 
