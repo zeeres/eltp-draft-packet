@@ -210,7 +210,7 @@ thead tr th {
      * by multiples of 250.
      * I hate CSS.
      */
-    min-width: 500px;
+    min-width: 750px;
 }
 
 .dropdown-menu-columns.show {
