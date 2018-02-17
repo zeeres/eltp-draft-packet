@@ -76,6 +76,8 @@ packet = []
 for i, r in enumerate(rows[1:]):
     packet.append(process_row(r, ratings[i]))
 
+print(f'{len(packet)} signups processed.')
+
 print('Reading player comments...')
 sheet = gc.open_by_key(sheet_comments).get_worksheet(0)
 for i, x in enumerate(sheet.col_values(1)[1:]):
@@ -85,8 +87,14 @@ for i, x in enumerate(sheet.col_values(1)[1:]):
 print('Sorting the packet...')
 packet = sorted(packet, key=lambda r: -r['rating'])
 load_profiles(packet)
-raw = json.dumps(packet, separators=(',', ':'))
 
+print('Removing removed signups...')
+
+packet = list(filter(lambda x: not x['removed'], packet))
+for x in packet:
+    del x['removed']
+
+raw = json.dumps(packet, separators=(',', ':'))
 print(f'Draft packet created with {len(packet)} rows')
 
 with open(os.path.join(dirname, 'ftp.json')) as f:

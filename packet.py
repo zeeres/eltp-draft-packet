@@ -11,6 +11,8 @@ def process_row(row, rating):
         comment_availability,
         position, position_preference,
         microphone, comment,
+        __, ___,
+        removed,
         *_
     ) = row
 
@@ -48,7 +50,9 @@ def process_row(row, rating):
 
         'comment': comment,
 
-        'rating': rating.get_rating()
+        'rating': rating.get_rating(),
+
+        'removed': removed != ''
     }
 
 
