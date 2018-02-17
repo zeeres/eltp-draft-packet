@@ -115,7 +115,7 @@ app.controller('draftPacketController', function($scope, $http) {
         var hl = $scope.highlights[player.profile] || '';
         return $scope.filter.countries[player.country.code]
             && $scope.filter.positions[getPosition(player.position)]
-            && $scope.filter.rating[Math.floor(player.rating)]
+            && $scope.filter.rating[Math.floor(player.rating >= 10 ? 9 : player.rating)]
             && $scope.filter.highlight[hl];
     };
 

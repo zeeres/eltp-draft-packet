@@ -52,7 +52,7 @@ def process_row(row, rating):
 
         'rating': rating.get_rating(),
 
-        'removed': removed != ''
+        'removed': removed == '1'
     }
 
 
