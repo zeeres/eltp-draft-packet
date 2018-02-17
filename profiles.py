@@ -23,7 +23,12 @@ def load_profiles(packet):
         for x in res.json():
             j = indices[x['_id']]
             out = packet[i + j]
-            out['flair'] = x['selectedFlair'].replace('.', '-')
+
+            if x['selectedFlair'] is not None:
+                out['flair'] = x['selectedFlair'].replace('.', '-')
+            else:
+                out['flair'] = ''
+
             out['stats'] = {
                 'rolling': {
                     'current': x['stats']['rollingCache']['winRate'],
