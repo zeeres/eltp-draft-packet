@@ -27,9 +27,9 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.highlights = JSON.parse(localStorage.getItem('highlights') || '{}');
 
     $(window).bind('storage', function (e) {
-        if (e.originalEvent.key == 'highlights')
+        if (e.originalEvent.key === 'highlights')
             $scope.highlights = JSON.parse(localStorage.getItem('highlights') || '{}');
-        else if (e.originalEvent.key == 'selection')
+        else if (e.originalEvent.key === 'selection')
             $scope.select(localStorage.getItem('selection'));
         $scope.$apply();
     });
