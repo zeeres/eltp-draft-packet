@@ -175,11 +175,36 @@
             <a href="#" class="highlighter highlighter-green" ng-class="{'highlighter-active': highlighter==='green'}" ng-click="setHighlighter('green')"></a>
             <a href="#" class="highlighter highlighter-blue" ng-class="{'highlighter-active': highlighter==='blue'}" ng-click="setHighlighter('blue')"></a>
             <a href="#" class="highlighter highlighter-strikethrough" ng-class="{'highlighter-active': highlighter==='strikethrough'}" ng-click="setHighlighter('strikethrough')"></a>
+            <a href="#" class="highlighter highlighter-white" ng-class="{'highlighter-active': highlighter==='white'}" ng-click="setHighlighter('white')"></a>
             <div class="flex-filler"></div>
             <a href="#" title="Remove highlights" data-toggle="tooltip" data-placement="right" ng-click="setHighlighter('erase')" ng-class="{'text-danger': highlighter==='erase'}">
                 <i class="fas fa-eraser"></i>
             </a>
             <a href="#" title="Reset" data-toggle="tooltip" data-placement="right" ng-click="resetHighlights()">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </div>
+        <div id="changeview" class="toolmenu toolmenu-collapsible" style="display: none">
+            <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
+                <i class="fas fa-times"></i>
+            </a>
+            <a href="#" ng-class="{'text-danger': autoscroll}" title="Auto scroll" data-toggle="tooltip" data-placement="right" ng-click="autoScroll()">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </a>
+            <a href="#" ng-class="{'text-danger': autoselect}" title="Auto select" data-toggle="tooltip" data-placement="right" ng-click="autoSelect()">
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </a>
+            <a href="#" title="Keep player +1" data-toggle="tooltip" data-placement="right" ng-click="changeKeep(1)">
+                <i class="fas fa-plus"></i>
+            </a>
+            <p id="keep" title="Keep unhighlighted" data-toggle="tooltip" data-placement="right">0</p>
+            <a href="#" title="Keep player -1" data-toggle="tooltip" data-placement="right" ng-click="changeKeep(-1)">
+                <i class="fas fa-minus"></i>
+            </a>
+            <a href="#" title="Switch panels" data-toggle="tooltip" data-placement="right" ng-click="switchPanels()">
+                <i class="fas fa-columns"></i>
+            </a>
+            <a href="#" title="Reset" data-toggle="tooltip" data-placement="right" ng-click="resetView()">
                 <i class="fas fa-trash-alt"></i>
             </a>
         </div>
@@ -192,6 +217,9 @@
             </a>
             <a href="#" title="Export" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#export')">
                 <i class="fas fa-share-square"></i>
+            </a>
+            <a href="#" title="Stream view" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#changeview')">
+                <i class="fas fa-eye"></i>
             </a>
             <div class="flex-filler"></div>
             <a target="_blank" href="https://reddit.com/r/ELTP" title="Reddit" data-toggle="tooltip" data-placement="right">
