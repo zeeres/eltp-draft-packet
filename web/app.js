@@ -41,9 +41,7 @@ app.controller('draftPacketController', function($scope, $http) {
         countries: {'': true},
         positions: {
             'o': true,
-            'o?': true,
             '?': true,
-            'd?': true,
             'd': true
         },
         rating: {
@@ -115,14 +113,9 @@ app.controller('draftPacketController', function($scope, $http) {
     };
 
     $scope.matchFilter = function(player) {
-        function getPosition(p) {
-            if(p.primary !== '?')return p.primary;
-            if(p.preference !== '?')return p.preference + '?';
-            return p.preference;
-        }
         var hl = $scope.highlights[player.profile] || '';
         return $scope.filter.countries[player.country.code]
-            && $scope.filter.positions[getPosition(player.position)]
+            && $scope.filter.positions[player.position]
             && $scope.filter.rating[Math.floor(player.rating >= 10 ? 9 : player.rating)]
             && $scope.filter.highlight[hl];
     };
@@ -204,27 +197,18 @@ app.controller('draftPacketController', function($scope, $http) {
     ]);
 
     $scope.format_position = function(pos) {
-        if(pos === undefined)
-            return '';
-
-        if(pos.primary === 'd')
-            return 'Defence only';
-        if(pos.primary === 'o')
-            return 'Offence only';
-
-        if(pos.preference === 'd')
-            return 'Defence preferred';
-        if(pos.preference === 'o')
-            return 'Offence preferred';
-
-        return 'Doesn\'t matter';
+        switch(pos) {
+        case 'd': return 'Defence';
+        case 'o': return 'Offence';
+        default:  return 'Doesn\'t matter';
+        }
     };
 
     $http.get('packet.json').then(data => {
         $scope.packet = data.data;
 
         var countryCounts = {};
-        
+
         for(var row of data.data) {
             var c = row.country.code;
 

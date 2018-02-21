@@ -68,27 +68,16 @@
                 <div class="dropdown-menu" aria-labelledby="filter-btn-position">
                     <label class="dropdown-item form-check-label">
                         <input type="checkbox" class="form-check-input" ng-model="filter.positions['o']" ng-change="updateFilterDisplays()" />
-                        Offence only
-                    </label>
-                    <label class="dropdown-item form-check-label">
-                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['o?']" ng-change="updateFilterDisplays()" />
-                        Offence preferred
+                        Offence
                     </label>
                     <label class="dropdown-item form-check-label">
                         <input type="checkbox" class="form-check-input" ng-model="filter.positions['?']" ng-change="updateFilterDisplays()" />
                         Either
                     </label>
                     <label class="dropdown-item form-check-label">
-                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['d?']" ng-change="updateFilterDisplays()" />
-                        Defence perferred
-                    </label>
-                    <label class="dropdown-item form-check-label">
                         <input type="checkbox" class="form-check-input" ng-model="filter.positions['d']" ng-change="updateFilterDisplays()" />
-                        Defence only
+                        Defence
                     </label>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" ng-click="selectX(filter.positions, true)">Select all</a>
-                    <a class="dropdown-item" href="#" ng-click="selectX(filter.positions, false)">Select none</a>
                 </div>
             </div>
             <div class="dropright">

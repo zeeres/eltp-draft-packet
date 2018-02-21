@@ -152,14 +152,16 @@ def fix_position(position, preference):
     elif position == 'Offence only':
         pos = 'o'
 
-    pref = ''
-    if pos == '?':
-        if preference == 'I prefer offence':
-            pref = 'o'
-        elif preference == 'I prefer defence':
-            pref = 'd'
+    return pos
 
-    return {'primary': pos, 'preference': pref}
+    # pref = ''
+    # if pos == '?':
+    #     if preference == 'I prefer offence':
+    #         pref = 'o'
+    #     elif preference == 'I prefer defence':
+    #         pref = 'd'
+
+    # return {'primary': pos, 'preference': pref}
 
 
 def fix_microphone(microphone):
