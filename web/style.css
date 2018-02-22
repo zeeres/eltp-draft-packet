@@ -297,7 +297,7 @@ thead tr th {
 
 .player-comment,
 .player-availability {
-	white-space: pre-wrap;
+    white-space: pre-wrap;
 }
 
 .w25 {width: 25%;}
