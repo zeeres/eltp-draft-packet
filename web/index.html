@@ -175,7 +175,7 @@
             <a href="#" class="highlighter highlighter-green" ng-class="{'highlighter-active': highlighter==='green'}" ng-click="setHighlighter('green')"></a>
             <a href="#" class="highlighter highlighter-blue" ng-class="{'highlighter-active': highlighter==='blue'}" ng-click="setHighlighter('blue')"></a>
             <a href="#" class="highlighter highlighter-strikethrough" ng-class="{'highlighter-active': highlighter==='strikethrough'}" ng-click="setHighlighter('strikethrough')"></a>
-            <a href="#" class="highlighter highlighter-white" ng-class="{'highlighter-active': highlighter==='white'}" ng-click="setHighlighter('white')"></a>
+            <a href="#" class="highlighter highlighter-stripes" ng-class="{'highlighter-active': highlighter==='stripes'}" ng-click="setHighlighter('stripes')"></a>
             <div class="flex-filler"></div>
             <a href="#" title="Remove highlights" data-toggle="tooltip" data-placement="right" ng-click="setHighlighter('erase')" ng-class="{'text-danger': highlighter==='erase'}">
                 <i class="fas fa-eraser"></i>
@@ -188,22 +188,17 @@
             <a href="#" title="Close" data-toggle="tooltip" data-placement="right" ng-click="closeToolMenu()" class="toolmenu-close">
                 <i class="fas fa-times"></i>
             </a>
-            <a href="#" ng-class="{'text-danger': autoscroll}" title="Auto scroll" data-toggle="tooltip" data-placement="right" ng-click="autoScroll()">
+            <a href="#" ng-class="{'text-danger': view.scroll}" title="Auto scroll" data-toggle="tooltip" data-placement="right" ng-click="toggleAutoScroll()">
                 <i class="fa fa-angle-down" aria-hidden="true"></i>
             </a>
-            <a href="#" ng-class="{'text-danger': autoselect}" title="Auto select" data-toggle="tooltip" data-placement="right" ng-click="autoSelect()">
+            <a href="#" ng-class="{'text-danger': view.select}" title="Auto select" data-toggle="tooltip" data-placement="right" ng-click="toggleAutoSelect()">
                 <i class="fa fa-check" aria-hidden="true"></i>
             </a>
-            <a href="#" title="Keep player +1" data-toggle="tooltip" data-placement="right" ng-click="changeKeep(1)">
-                <i class="fas fa-plus"></i>
-            </a>
-            <p id="keep" title="Keep unhighlighted" data-toggle="tooltip" data-placement="right">0</p>
-            <a href="#" title="Keep player -1" data-toggle="tooltip" data-placement="right" ng-click="changeKeep(-1)">
-                <i class="fas fa-minus"></i>
-            </a>
+            <input id="keep" title="Keep unhighlighted" data-toggle="tooltip" data-placement="right" ng-model="view.keep" />
             <a href="#" title="Switch panels" data-toggle="tooltip" data-placement="right" ng-click="switchPanels()">
                 <i class="fas fa-columns"></i>
             </a>
+            <div class="flex-filler"></div>
             <a href="#" title="Reset" data-toggle="tooltip" data-placement="right" ng-click="resetView()">
                 <i class="fas fa-trash-alt"></i>
             </a>

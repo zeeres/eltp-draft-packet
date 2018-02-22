@@ -18,7 +18,6 @@ app.controller('draftPacketController', function($scope, $http) {
     for(var i=0; i<50; ++i) $scope.dummy_rows.push(i);
 
     $scope.selection = localStorage.getItem('selection') || -1;
-
     $scope.player = {};
     $scope.weekly_availability = [];
 
@@ -26,21 +25,23 @@ app.controller('draftPacketController', function($scope, $http) {
 
     $scope.highlighter = '';
     $scope.highlights = JSON.parse(localStorage.getItem('highlights') || '{}');
+    $scope.last_highlight = localStorage.getItem('last_highlight') || '{}';
 
     $(window).bind('storage', function (e) {
         if (e.originalEvent.key === 'highlights') {
             $scope.highlights = JSON.parse(localStorage.getItem('highlights') || '{}');
-            $scope.auto_scroll();
-            $scope.auto_select();
+            $scope.updateAutoScroll();
         } else if (e.originalEvent.key === 'selection')
             $scope.select(localStorage.getItem('selection'));
+        else if (e.originalEvent.key === 'last_highlight')
+            $scope.updateAutoSelect();
         $scope.$apply();
     });
 
-    $scope.autoscroll = false;
-    $scope.autoselect = false;
-    $scope.keep = 0;
-    $scope.max_keep = $scope.packet.length;
+    $scope.view = {}
+    $scope.view.scroll = false;
+    $scope.view.select = false;
+    $scope.view.keep = 0;
 
     $scope.countries = [];
     $scope.countryNames = {};
@@ -71,7 +72,7 @@ app.controller('draftPacketController', function($scope, $http) {
             yellow: true,
             green: true,
             blue: true,
-            white: true,
+            stripes: true,
             strikethrough: true,
             '': true
         }
@@ -171,6 +172,7 @@ app.controller('draftPacketController', function($scope, $http) {
                 $scope.highlights[player] = $scope.highlighter;
 
             localStorage.setItem('highlights', JSON.stringify($scope.highlights));
+            localStorage.setItem('last_highlight', player);
             return;
         }
 
@@ -363,59 +365,55 @@ app.controller('draftPacketController', function($scope, $http) {
         document.body.removeChild(el);
     };
 
-    $scope.auto_scroll = function() {
-        if (!$scope.autoscroll) return;
+    $('#keep').bind('mousewheel DOMMouseScroll', function (event) {
+        event.preventDefault();
+        if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) $scope.view.keep += 1;
+        else $scope.view.keep -= 1;
+        $scope.updateAutoScroll();
+        $scope.$apply();
+    });
+    $scope.updateAutoScroll = function() {
+        if (!$scope.view.scroll) return;
         var i=0;
         while (i < $scope.packet.length && Object.keys($scope.highlights).indexOf($scope.packet[i].profile) !== -1) i++;;
-        $scope.max_keep = i;
-        console.log(i);
         // by default scroll down so the first not-highlighted player is visible
-        $('#player-' + (i-$scope.keep))[0].scrollIntoView({behavior: 'smooth'});
+        if (i-$scope.view.keep > -1)
+            $('#player-' + (i-$scope.view.keep))[0].scrollIntoView({behavior: 'smooth'});
     };
-    $scope.auto_select = function() {
-        if (!$scope.autoselect) return;
-        var keys = Object.keys($scope.highlights),
-            lastplayer = keys[keys.length-1],
+    $scope.updateAutoSelect = function() {
+        if (!$scope.view.select) return;
+        var player = localStorage.getItem('last_highlight'),
             i=0;
-        while ((i < $scope.packet.length) && ($scope.packet[i].profile !== lastplayer)) i++;;
+        while ((i < $scope.packet.length) && ($scope.packet[i].profile !== player)) i++;;
         $scope.selection = i;
         if(i >= 0) {
             $scope.player = $scope.packet[i];
             $scope.weekly_availability = $scope.weeksplit($scope.player.availability.weekly);
         }
     };
-    $scope.autoScroll = function() {
+    $scope.toggleAutoScroll = function() {
         $('#packet-container').popover('hide');
-        $scope.autoscroll = $scope.autoscroll === false ? true : false;
-        $scope.auto_scroll();
+        $scope.view.scroll = !$scope.view.scroll;
+        $scope.updateAutoScroll();
     };
-    $scope.autoSelect = function() {
+    $scope.toggleAutoSelect = function() {
         $('#packet-container').popover('hide');
-        $scope.autoselect = $scope.autoselect === false ? true : false;
-        $scope.auto_select();
+        $scope.view.select = !$scope.view.select;
+        $scope.updateAutoSelect();
     };
     $scope.switchPanels = function() {
         $('#packet-container').popover('hide');
-        if ($('#packet-container').nextAll().filter('#right-panel').length !== 0)  // if right-panel is right of the packet-container
-            $('#right-panel').insertBefore('#packet-container');
+        if ($('#packet-container').css('order') < 1)  // if right-panel is right of the packet-container
+             $('#packet-container').css('order', 1)
         else // right-panel is left
-            $('#right-panel').insertAfter('#packet-container');
+            $('#packet-container').css('order', 0)
     };
     $scope.resetView = function() {
         $('#right-panel').insertAfter('#packet-container');
-        $scope.autoscroll = false;
-        $scope.autoselect = false;
-        $scope.keep = 0;
-        $('#keep').text(0);
+        $scope.view.scroll = false;
+        $scope.view.select = false;
+        $scope.view.keep = 0;
     };
-    $scope.changeKeep = function(i) {
-        if ((i < 0 && $scope.keep > 0) || i > 0 && $scope.keep < $scope.max_keep) {
-            $scope.keep += i;
-            $('#keep').text($scope.keep);
-            if ($scope.autoscroll)
-                $scope.auto_scroll();
-        }
-    }
 });
 
 app.directive('availability', function() {

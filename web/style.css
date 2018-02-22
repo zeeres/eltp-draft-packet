@@ -58,7 +58,7 @@ thead tr th {
     background-color: inherit;
 }
 
-.toolmenu > a, .toolmenu > p, .toolmenu > .dropright > a {
+.toolmenu > a, .toolmenu > input, .toolmenu > .dropright > a {
     font-size: 2em;
     color: #bbb;
     width: 64px;
@@ -176,7 +176,8 @@ thead tr th {
     background-color: rgb(128, 192, 255) !important;
 }
 
-.highlighter-white::after, .hl-white {
+.highlighter-stripes::after, .hl-stripes {
+    background-color: rgb(235, 235, 235);
     background-image: repeating-linear-gradient(45deg, white 0%, white 2%, rgba(235,235,235,0) 2%, rgba(235,235,235,0) 4%, white 4%) !important;
 }
 
