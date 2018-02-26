@@ -295,6 +295,11 @@ thead tr th {
     vertical-align: middle;
 }
 
+.player-comment,
+.player-availability {
+    white-space: pre-wrap;
+}
+
 .w25 {width: 25%;}
 .w50 {width: 50%;}
 .w100 {width: 100%;}

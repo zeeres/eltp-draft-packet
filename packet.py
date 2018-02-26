@@ -41,14 +41,14 @@ def process_row(row, rating):
         'availability': {
             'weekly': weekly,
             'daily': daily,
-            'comment': comment_availability
+            'comment': comment_availability.strip()
         },
 
         'position': pos,
 
         'microphone': microphone,
 
-        'comment': comment,
+        'comment': comment.strip(),
 
         'rating': rating.get_rating(),
 
