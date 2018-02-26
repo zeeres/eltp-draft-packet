@@ -378,7 +378,7 @@ app.controller('draftPacketController', function($scope, $http) {
         while (i < $scope.packet.length && Object.keys($scope.highlights).indexOf($scope.packet[i].profile) !== -1) i++;;
         // by default scroll down so the first not-highlighted player is visible
         if (i-$scope.view.keep > -1)
-            $('#player-' + (i-$scope.view.keep))[0].scrollIntoView({behavior: 'smooth'});
+            $('#player-' + (i-$scope.view.keep))[0].scrollIntoView({block: "start"});
     };
     $scope.updateAutoSelect = function() {
         if (!$scope.view.select) return;
