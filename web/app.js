@@ -74,6 +74,14 @@ app.controller('draftPacketController', function($scope, $http) {
         highlight: false
     };
 
+    $scope.FilterCount = {
+        any: 0,
+        countries: 0,
+        positions: 0,
+        rating: 0,
+        highlight: 0
+    };
+
     $scope.selectX = function(o, v) {
         for(var k in o)
             o[k] = v;
@@ -96,6 +104,32 @@ app.controller('draftPacketController', function($scope, $http) {
                             || $scope.hasFilter.positions
                             || $scope.hasFilter.rating
                             || $scope.hasFilter.highlight;
+        if ($scope.hasFilter.any) {
+            var i=0, fcc=0, fcp=0, fcr=0, fch=0, fca=0;
+            for(var i=0; i<$scope.packet.length; i++) {
+                var player = $scope.packet[i],
+                    activeFilters = {},
+                    hl = $scope.highlights[player.profile] || '';
+                if ($scope.hasFilter.countries) activeFilters['countries'] = $scope.filter.countries[player.country.code];
+                if ($scope.hasFilter.positions) activeFilters['positions'] = $scope.filter.positions[player.position];
+                if ($scope.hasFilter.rating) activeFilters['rating'] = $scope.filter.rating[Math.floor(player.rating >= 10 ? 9 : player.rating)];
+                if ($scope.hasFilter.highlight) activeFilters['highlight'] = $scope.filter.highlight[hl];
+                var allFiltersActive = true;
+                for (var f in activeFilters) {
+                    if (activeFilters[f] && f === 'countries') fcc++;
+                    if (activeFilters[f] && f === 'positions') fcp++;
+                    if (activeFilters[f] && f === 'rating') fcr++;
+                    if (activeFilters[f] && f === 'highlight') fch++;
+                    if (!activeFilters[f]) allFiltersActive = false;
+                }
+                if (allFiltersActive) fca++;
+            }
+            $scope.FilterCount.countries = fcc;
+            $scope.FilterCount.positions = fcp;
+            $scope.FilterCount.rating = fcr;
+            $scope.FilterCount.highlight = fch;
+            $scope.FilterCount.any = fca;
+        }
     };
 
     $scope.resetFilters = function() {

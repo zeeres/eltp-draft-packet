@@ -64,6 +64,9 @@
             <div class="dropright">
                 <a ng-class="{'text-danger': hasFilter.positions}" id="filter-btn-position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     OD
+                    <span class="fa-layers fa-fw" ng-class="{'hide': !hasFilter.positions}">
+                        <span class="fa-layers-counter" style="font-weight:900">{{ FilterCount.positions }}</span>
+                    </span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="filter-btn-position">
                     <label class="dropdown-item form-check-label">
@@ -82,7 +85,10 @@
             </div>
             <div class="dropright">
                 <a ng-class="{'text-danger': hasFilter.countries}" id="filter-btn-country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                    <i class="fas fa-flag"></i>
+                    <span class="fa-layers fa-fw">
+                        <i class="fas fa-flag"></i>
+                        <span class="fa-layers-counter" style="font-weight:900" ng-class="{'hide': !hasFilter.countries}">{{ FilterCount.countries }}</span>
+                    </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-columns" aria-labelledby="filter-btn-country">
                     <label class="dropdown-item form-check-label" ng-repeat="c in countries">
@@ -103,7 +109,10 @@
             </div>
             <div class="dropright">
                 <a ng-class="{'text-danger': hasFilter.rating}" id="filter-btn-rating" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                    <i class="fas fa-star"></i>
+                    <span class="fa-layers fa-fw">
+                        <i class="fas fa-star"></i>
+                        <span class="fa-layers-counter" style="font-weight:900" ng-class="{'hide': !hasFilter.rating}">{{ FilterCount.rating }}</span>
+                    </span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="filter-btn-rating">
                     <label class="dropdown-item form-check-label" ng-repeat="x in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]">
@@ -117,7 +126,10 @@
             </div>
             <div class="dropright">
                 <a ng-class="{'text-danger': hasFilter.highlight}" id="filter-btn-highlight" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                    <i class="fas fa-paint-brush"></i>
+                    <span class="fa-layers fa-fw">
+                        <i class="fas fa-paint-brush"></i>
+                        <span class="fa-layers-counter" style="font-weight:900" ng-class="{'hide': !hasFilter.highlight}" >{{ FilterCount.highlight }}</span>
+                    </span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="filter-btn-highlight">
                     <label class="dropdown-item form-check-label">
@@ -174,7 +186,10 @@
         </div>
         <div id="tools" class="toolmenu" style="display: none">
             <a ng-class="{'text-danger': hasFilter.any}" href="#" title="Filter" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#filters')">
-                <i class="fas fa-filter"></i>
+                <span class="fa-layers fa-fw">
+                    <i class="fas fa-filter"></i>
+                    <span class="fa-layers-counter" style="font-weight:900" ng-class="{'hide': !hasFilter.any}">{{ FilterCount.any }}</span>
+                </span>
             </a>
             <a href="#"title="Mark" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#markers')">
                 <i class="fas fa-paint-brush"></i>
