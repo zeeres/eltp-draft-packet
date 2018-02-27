@@ -88,7 +88,9 @@ for i, x in enumerate(sheet.col_values(1)[1:]):
         packet[i]['rating_comment'] = x
 
 print('Sorting the packet...')
-packet = sorted(packet, key=lambda r: -r['rating'])
+packet.sort(
+    key=lambda r: (-r['captain'], -r['rating'], r['name'].lower())
+)
 load_profiles(packet)
 
 print('Removing removed signups...')

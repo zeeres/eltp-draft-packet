@@ -13,6 +13,7 @@ def process_row(row, rating):
         microphone, comment,
         __, ___,
         removed,
+        captain,
         *_
     ) = row
 
@@ -26,6 +27,8 @@ def process_row(row, rating):
 
     pos = fix_position(position, position_preference)
     microphone = fix_microphone(microphone)
+
+    captain = captain == '1'
 
     return {
         'name': player_name,
@@ -50,7 +53,9 @@ def process_row(row, rating):
 
         'comment': comment.strip(),
 
-        'rating': rating.get_rating(),
+        'rating': 0 if captain else rating.get_rating(),
+
+        'captain': captain,
 
         'removed': removed == '1'
     }

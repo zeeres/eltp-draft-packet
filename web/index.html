@@ -233,7 +233,10 @@
                                     {{ row.name }}
                                 </td>
                                 <td>
-                                    <stars rating="row.rating"></stars>
+                                    <stars rating="row.rating" ng-if="!row.captain"></stars>
+                                    <span ng-if="row.captain">
+                                        Captain
+                                    </span>
                                 </td>
                                 <td class="hidden-xs">
                                     {{ format_position(row.position) }}
