@@ -173,6 +173,12 @@
             </a>
         </div>
         <div id="tools" class="toolmenu" style="display: none">
+            <div class="dropright" id="search-dropdown">
+                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btn-search" ng-class="{'text-danger': search !== ''}">
+                    <i class="fas fa-search"></i>
+                </a>
+                <input type="text" class="dropdown-menu form-control px-2" ng-model="search" placeholder="Search..." id="search-input" />
+            </div>
             <a ng-class="{'text-danger': hasFilter.any}" href="#" title="Filter" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#filters')">
                 <i class="fas fa-filter"></i>
             </a>
@@ -213,7 +219,7 @@
                                 <td></td>
                                 <td class="hidden-xs"></td>
                             </tr>
-                            <tr id="player-{{ $index }}" ng-repeat="row in packet" ng-if="matchFilter(row)" ng-class="['hl-' + highlights[row.profile], {'table-active': selection == $index}]" ng-click="select($index)">
+                            <tr id="player-{{ $index }}" ng-repeat="row in packet" ng-class="['hl-' + highlights[row.profile], {'hide': !matchFilter(row), 'table-active': selection == $index}]" ng-click="select($index)">
                                 <td class="td-narrow text-center">
                                      <small>{{ $index + 1 }}</small>
                                 </td>

@@ -37,6 +37,14 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.countries = [];
     $scope.countryNames = {};
 
+    $scope.search = '';
+
+    $('#search-dropdown').on('shown.bs.dropdown', function() {
+        $scope.search = '';
+        $scope.$apply();
+        $('#search-input').focus();
+    });
+
     $scope.filter = {
         countries: {'': true},
         positions: {
@@ -95,7 +103,8 @@ app.controller('draftPacketController', function($scope, $http) {
         $scope.hasFilter.any = $scope.hasFilter.countries
                             || $scope.hasFilter.positions
                             || $scope.hasFilter.rating
-                            || $scope.hasFilter.highlight;
+                            || $scope.hasFilter.highlight
+                            || $scope.search !== '';
     };
 
     $scope.resetFilters = function() {
@@ -108,13 +117,16 @@ app.controller('draftPacketController', function($scope, $http) {
         reset($scope.filter.rating);
         reset($scope.filter.highlight);
 
+        $scope.search = '';
+
         for(var k in $scope.hasFilter)
             $scope.hasFilter[k] = false;
     };
 
     $scope.matchFilter = function(player) {
         var hl = $scope.highlights[player.profile] || '';
-        return $scope.filter.countries[player.country.code]
+        return player.name.toLowerCase().indexOf($scope.search.toLowerCase()) !== -1
+            && $scope.filter.countries[player.country.code]
             && $scope.filter.positions[player.position]
             && $scope.filter.rating[Math.floor(player.rating >= 10 ? 9 : player.rating)]
             && $scope.filter.highlight[hl];
