@@ -17,7 +17,7 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.dummy_rows = [];
     for(var i=0; i<50; ++i) $scope.dummy_rows.push(i);
 
-    $scope.selection = localStorage.getItem('selection') || -1;
+    $scope.selection = -1;
     $scope.player = {};
     $scope.weekly_availability = [];
 
@@ -227,13 +227,15 @@ app.controller('draftPacketController', function($scope, $http) {
         $scope.countries = Object.keys(countryCounts).sort((x, y) => countryCounts[y] - countryCounts[x]);
 
         $scope.loading = false;
+        $scope.select(parseInt(localStorage.getItem('selection') || '-1'));
 
-        $('#packet-container').popover({
-            'placement': 'right',
-            'content': 'Click a player to view more information!',
-            'trigger': 'manual',
-            'offset': '0px 20px'
-        }).popover('show');
+        if($scope.selection === -1)
+            $('#packet-container').popover({
+                'placement': 'right',
+                'content': 'Click a player to view more information!',
+                'trigger': 'manual',
+                'offset': '0px 20px'
+            }).popover('show');
     });
 
     $scope.keyboardNavigation = function(keyCode) {
