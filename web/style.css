@@ -295,8 +295,7 @@ thead tr th {
     vertical-align: middle;
 }
 
-.player-comment,
-.player-availability {
+.player-comment {
     white-space: pre-wrap;
 }
 

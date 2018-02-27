@@ -285,17 +285,11 @@
                                     <div class="w25">
                                         Orbit: {{ player.ping.orbit }}
                                     </div>
-                                    <div ng-if="player.comment !== ''" class="w100 player-comment">
-                                        {{ player.comment }}
-                                    </div>
-                                    <div ng-if="player.hasOwnProperty('rating_comment')" class="w100">
-                                        {{ player.rating_comment }}
-                                    </div>
+                                    <div ng-if="player.comment !== ''" class="w100 player-comment">{{ player.comment }}</div>
+                                    <div ng-if="player.hasOwnProperty('rating_comment')" class="w100 player-comment">{{ player.rating_comment }}</div>
                                 </div>
                                 <div id="tab-availability-weekly" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-weekly">
-                                    <div class="card-body player-availability">
-                                        {{ player.availability.comment }}
-                                    </div>
+                                    <div class="card-body player-comment">{{ player.availability.comment }}</div>
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>
