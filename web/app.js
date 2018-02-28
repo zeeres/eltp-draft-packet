@@ -10,9 +10,43 @@ $(document).ready(function() {
     $('#packet, #selected-player-overview, .toolmenu').show();
 });
 
-app.controller('draftPacketController', function($scope, $http) {
+app.controller('draftPacketController', function($scope, $http, $timeout) {
     $scope.packet = [];
     $scope.loading = true;
+
+    $scope.drafted = {};
+    $scope.draft_running = false;
+    $scope.draft_date = new Date(0);
+    $scope.draftTimeout = null;
+
+    $scope.updateDraft = function(response) {
+        var d = {};
+        for(var player of response.draft)
+            d[player] = true;
+        $scope.drafted = d;
+        $scope.draft_running = response.running;
+        $scope.draft_date = new Date(response.date);
+
+        var diff = (new Date) - $scope.draft_date;
+
+        var next = 15 * 60 * 1000; // update every 15 mins
+
+        if($scope.draft_running || diff >= 0 && diff < 60 * 60 * 1000)
+            next = 15 * 1000; // every 15 secs
+
+        $scope.scheduleDraftUpdate(next);
+    };
+
+    $scope.scheduleDraftUpdate = function(time) {
+        if($scope.draftTimeout !== null)
+            $timeout.cancel($scope.draftTimeout);
+
+        $scope.draftTimeout = $timeout(function() {
+            $http.get('draft.json').then(data => {
+                $scope.updateDraft(data.data);
+            });
+        }, time);
+    };
 
     $scope.dummy_rows = [];
     for(var i=0; i<50; ++i) $scope.dummy_rows.push(i);
@@ -248,6 +282,8 @@ app.controller('draftPacketController', function($scope, $http) {
                 'trigger': 'manual',
                 'offset': '0px 20px'
             }).popover('show');
+
+        $scope.scheduleDraftUpdate(1000);
     });
 
     $scope.keyboardNavigation = function(keyCode) {

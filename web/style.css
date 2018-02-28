@@ -176,6 +176,11 @@ thead tr th {
     background-color: rgb(128, 192, 255) !important;
 }
 
+.drafted {
+    background-color: rgb(235, 235, 235);
+    background-image: repeating-linear-gradient(45deg, white 0%, white 2%, rgba(235,235,235,0) 2%, rgba(235,235,235,0) 4%, white 4%) !important;
+}
+
 .hl-strikethrough {
     text-decoration: line-through !important;
 }
