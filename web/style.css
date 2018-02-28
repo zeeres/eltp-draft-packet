@@ -282,7 +282,7 @@ thead tr th {
 
 .player-info {
     flex-flow: row wrap;
-    margin-right: -3px;
+    margin-right: -1px;
     margin-bottom: -1px;
     display: flex;
 }
