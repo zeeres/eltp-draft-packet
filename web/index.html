@@ -62,6 +62,21 @@
                 <i class="fas fa-times"></i>
             </a>
             <div class="dropright">
+                <a ng-class="{'text-danger': hasFilter.drafted}" id="filter-btn-drafted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="fas fa-check"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="filter-btn-drafted">
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.drafted[true]" ng-change="updateFilterDisplays()" />
+                        Drafted
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.drafted[false]" ng-change="updateFilterDisplays()" />
+                        Not drafted
+                    </label>
+                </div>
+            </div>
+            <div class="dropright">
                 <a ng-class="{'text-danger': hasFilter.positions}" id="filter-btn-position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     OD
                 </a>

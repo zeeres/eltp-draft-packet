@@ -105,6 +105,10 @@ app.controller('draftPacketController', function($scope, $http, $timeout) {
             blue: true,
             strikethrough: true,
             '': true
+        },
+        drafted: {
+            true: true,
+            false: true
         }
     };
 
@@ -113,7 +117,8 @@ app.controller('draftPacketController', function($scope, $http, $timeout) {
         countries: false,
         positions: false,
         rating: false,
-        highlight: false
+        highlight: false,
+        drafted: false
     };
 
     $scope.selectX = function(o, v) {
@@ -133,11 +138,13 @@ app.controller('draftPacketController', function($scope, $http, $timeout) {
         $scope.hasFilter.positions = check($scope.filter.positions);
         $scope.hasFilter.rating = check($scope.filter.rating);
         $scope.hasFilter.highlight = check($scope.filter.highlight);
+        $scope.hasFilter.drafted = check($scope.filter.drafted);
 
         $scope.hasFilter.any = $scope.hasFilter.countries
                             || $scope.hasFilter.positions
                             || $scope.hasFilter.rating
                             || $scope.hasFilter.highlight
+                            || $scope.hasFilter.drafted
                             || $scope.search !== '';
     };
 
@@ -150,6 +157,7 @@ app.controller('draftPacketController', function($scope, $http, $timeout) {
         reset($scope.filter.positions);
         reset($scope.filter.rating);
         reset($scope.filter.highlight);
+        reset($scope.filter.drafted);
 
         $scope.search = '';
 
@@ -163,7 +171,8 @@ app.controller('draftPacketController', function($scope, $http, $timeout) {
             && $scope.filter.countries[player.country.code]
             && $scope.filter.positions[player.position]
             && $scope.filter.rating[Math.floor(player.rating >= 10 ? 9 : player.rating)]
-            && $scope.filter.highlight[hl];
+            && $scope.filter.highlight[hl]
+            && $scope.filter.drafted[$scope.drafted[player.name] || false];
     };
 
     $scope.setHighlighter = function(h) {
