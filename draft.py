@@ -13,6 +13,7 @@ if len(sys.argv) < 2:
 usage: python3 draft.py [command]
 
 command:
+    interactive                  - interactive mode
     set_date <%Y-%m-%d %H:%M:%S> - set the start date of the draft (UTC)
     start                        - start the draft
     stop                         - stop the draft
@@ -68,48 +69,66 @@ except FileNotFoundError:
     draft = []
     start = datetime.utcfromtimestamp(0)
 
-cmd = sys.argv[1]
 
-if cmd == 'set_date':
-    start = datetime.strptime(' '.join(sys.argv[2:]), '%Y-%m-%d %H:%M:%S')
-    print(f'Set start date to {start:%Y-%m-%d %H:%M:%S}')
-    save()
-elif cmd == 'start':
-    running = True
-    print('Started the draft.')
-    save()
-elif cmd == 'stop':
-    running = False
-    print('Started the draft.')
-    save()
-elif cmd == 'pick':
-    player = ' '.join(sys.argv[2:])
-    draft.append(player)
-    print(f'Drafted player {player}.')
-    save()
-elif cmd == 'show':
-    n = int(sys.argv[2])
-    if n <= 0:
-        n = len(draft)
-    print('\n'.join(draft[-n:]))
-elif cmd == 'remove':
-    player = ' '.join(sys.argv[2:])
-    if player in draft:
-        draft.remove(player)
-        print(f'Removed player {player}')
-        save()
-    else:
-        print(f'Player {player} has not been drafted.')
-elif cmd == 'go_back':
-    n = int(sys.argv[2])
-    if n > 0:
-        draft = draft[:-n]
-        print(f'Removed {n} picks')
-        save()
-elif cmd == 'reset':
-    confirm = input('Are you sure? ').lower()
-    if confirm == 'yes':
-        draft = []
-        start = datetime.utcfromtimestamp(0)
-        print('Draft has been reset.')
-        save()
+def command(args):
+    global running, draft, start
+    try:
+        cmd = args[0]
+
+        if cmd == 'set_date':
+            start = datetime.strptime(' '.join(args[1:]), '%Y-%m-%d %H:%M:%S')
+            print(f'Set start date to {start:%Y-%m-%d %H:%M:%S}')
+            save()
+        elif cmd == 'start':
+            running = True
+            print('Started the draft.')
+            save()
+        elif cmd == 'stop':
+            running = False
+            print('Started the draft.')
+            save()
+        elif cmd == 'pick':
+            player = ' '.join(args[1:])
+            draft.append(player)
+            print(f'Drafted player {player}.')
+            save()
+        elif cmd == 'show':
+            n = int(args[1])
+            if n <= 0:
+                n = len(draft)
+            print('\n'.join(draft[-n:]))
+        elif cmd == 'remove':
+            player = ' '.join(args[1:])
+            if player in draft:
+                draft.remove(player)
+                print(f'Removed player {player}')
+                save()
+            else:
+                print(f'Player {player} has not been drafted.')
+        elif cmd == 'go_back':
+            n = int(args[1])
+            if n > 0:
+                draft = draft[:-n]
+                print(f'Removed {n} picks')
+                save()
+        elif cmd == 'reset':
+            confirm = input('Are you sure? ').lower()
+            if confirm == 'yes':
+                draft = []
+                start = datetime.utcfromtimestamp(0)
+                print('Draft has been reset.')
+                save()
+    except IndexError:
+        print('Not enough arguments.')
+
+
+if sys.argv[1] == 'interactive':
+    try:
+        print('Entered interactive mode. Press ^C to quit.')
+        while True:
+            line = input('> ').split()
+            command(line)
+    except KeyboardInterrupt:
+        pass
+else:
+    command(sys.argv[1:])
