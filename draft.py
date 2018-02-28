@@ -16,7 +16,7 @@ command:
     set_date <%Y-%m-%d %H:%M:%S> - set the start date of the draft (UTC)
     start                        - start the draft
     stop                         - stop the draft
-    pick <player> <team>         - pick a player by name and team abbreviation
+    pick <player>                - pick a player by name and team abbreviation
     show <n>                     - show the n last picks, defaults to all picks
     remove <player>              - remove a pick
     go_back <n>                  - revert n picks, defaults to 1
@@ -38,7 +38,8 @@ with open(os.path.join(dirname, 'ftp.json')) as f:
 def save():
     data = {
         'draft': draft,
-        'start': int(start.replace(tzinfo=timezone.utc).timestamp())
+        'start': int(start.replace(tzinfo=timezone.utc).timestamp()),
+        'running': running
     }
     raw = json.dumps(data, separators=(',', ':'))
 
@@ -61,6 +62,7 @@ try:
         data = json.load(f)
         draft = data.get('draft', [])
         start = datetime.utcfromtimestamp(data.get('start', 0))
+        running = data.get('running', False)
 except FileNotFoundError:
     print('Draft data not found, creating...')
     draft = []
@@ -73,21 +75,37 @@ if cmd == 'set_date':
     print(f'Set start date to {start:%Y-%m-%d %H:%M:%S}')
     save()
 elif cmd == 'start':
-    ...
+    running = True
+    print('Started the draft.')
+    save()
 elif cmd == 'stop':
-    ...
+    running = False
+    print('Started the draft.')
+    save()
 elif cmd == 'pick':
     player = ' '.join(sys.argv[2:])
-    ...
+    draft.append(player)
+    print(f'Drafted player {player}.')
+    save()
 elif cmd == 'show':
     n = int(sys.argv[2])
-    ...
+    if n <= 0:
+        n = len(draft)
+    print('\n'.join(draft[-n:]))
 elif cmd == 'remove':
     player = ' '.join(sys.argv[2:])
-    ...
+    if player in draft:
+        draft.remove(player)
+        print(f'Removed player {player}')
+        save()
+    else:
+        print(f'Player {player} has not been drafted.')
 elif cmd == 'go_back':
     n = int(sys.argv[2])
-    ...
+    if n > 0:
+        draft = draft[:-n]
+        print(f'Removed {n} picks')
+        save()
 elif cmd == 'reset':
     confirm = input('Are you sure? ').lower()
     if confirm == 'yes':
