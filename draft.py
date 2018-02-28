@@ -65,4 +65,33 @@ except FileNotFoundError:
     print('Draft data not found, creating...')
     draft = []
     start = datetime.utcfromtimestamp(0)
+
+cmd = sys.argv[1]
+
+if cmd == 'set_date':
+    start = datetime.strptime(' '.join(sys.argv[2:]), '%Y-%m-%d %H:%M:%S')
+    print(f'Set start date to {start:%Y-%m-%d %H:%M:%S}')
     save()
+elif cmd == 'start':
+    ...
+elif cmd == 'stop':
+    ...
+elif cmd == 'pick':
+    player = ' '.join(sys.argv[2:])
+    ...
+elif cmd == 'show':
+    n = int(sys.argv[2])
+    ...
+elif cmd == 'remove':
+    player = ' '.join(sys.argv[2:])
+    ...
+elif cmd == 'go_back':
+    n = int(sys.argv[2])
+    ...
+elif cmd == 'reset':
+    confirm = input('Are you sure? ').lower()
+    if confirm == 'yes':
+        draft = []
+        start = datetime.utcfromtimestamp(0)
+        print('Draft has been reset.')
+        save()
