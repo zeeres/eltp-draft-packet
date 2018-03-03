@@ -227,6 +227,7 @@
                                 <th>Player</th>
                                 <th>Rating</th>
                                 <th class="hidden-xs">Position</th>
+                                <th class="td-narrow"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -237,6 +238,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="hidden-xs"></td>
+                                <td></td>
                             </tr>
                             <tr id="player-{{ $index }}" ng-repeat="row in packet" ng-class="['hl-' + highlights[row.profile], {'drafted': drafted[row.name], 'hide': !matchFilter(row), 'table-active': selection == $index}]" ng-click="select($index)">
                                 <td class="td-narrow text-center">
@@ -259,6 +261,9 @@
                                 </td>
                                 <td class="hidden-xs">
                                     {{ format_position(row.position) }}
+                                </td>
+                                <td class="td-narrow">
+                                    <i ng-if="row.restriction !== ''" class="fas fa-exclamation-triangle text-warning"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -320,9 +325,11 @@
                                     </div>
                                     <div ng-if="player.comment !== ''" class="w100 player-comment">{{ player.comment }}</div>
                                     <div ng-if="player.hasOwnProperty('rating_comment')" class="w100 player-comment">{{ player.rating_comment }}</div>
+                                    <div ng-if="player.restriction !== ''" class="w100 player-comment text-danger">{{ player.restriction }}</div>
                                 </div>
                                 <div id="tab-availability-weekly" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-weekly">
                                     <div class="card-body player-comment">{{ player.availability.comment }}</div>
+                                    <div ng-if="player.restriction !== ''" class="card-body player-comment text-danger">{{ player.restriction }}</div>
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>
@@ -351,9 +358,8 @@
                                     </table>
                                 </div>
                                 <div id="tab-availability-daily" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-daily">
-                                    <div class="card-body">
-                                        {{ player.availability.comment }}
-                                    </div>
+                                    <div class="card-body player-comment">{{ player.availability.comment }}</div>
+                                    <div ng-if="player.restriction !== ''" class="card-body player-comment text-danger">{{ player.restriction }}</div>
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>

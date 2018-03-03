@@ -14,6 +14,7 @@ def process_row(row, rating):
         __, ___,
         removed,
         captain,
+        restriction,
         *_
     ) = row
 
@@ -56,6 +57,8 @@ def process_row(row, rating):
         'rating': 0 if captain else rating.get_rating(),
 
         'captain': captain,
+
+        'restriction': restriction.strip(),
 
         'removed': removed == '1'
     }
