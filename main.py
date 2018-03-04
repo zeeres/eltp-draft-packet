@@ -58,10 +58,13 @@ for s in sheet_ratings:
     column = sheet.col_values(1)[1:]
     for i, x in enumerate(column):
         try:
+            if isinstance(x, str):
+                x = x.replace(',', '.')
             r = float(x)
             ratings[i].add(r)
         except ValueError:
-            pass
+            if x != '':
+                print(f'Invalid rating {x}')
 
 print('Finished reading ratings.')
 
@@ -85,7 +88,9 @@ for i, x in enumerate(sheet.col_values(1)[1:]):
         packet[i]['rating_comment'] = x
 
 print('Sorting the packet...')
-packet = sorted(packet, key=lambda r: -r['rating'])
+packet.sort(
+    key=lambda r: (-r['captain'], -r['rating'], r['name'].lower())
+)
 load_profiles(packet)
 
 print('Removing removed signups...')

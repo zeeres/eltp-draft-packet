@@ -6,11 +6,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+
         <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css">
         <link rel="stylesheet" type="text/css" href="style.css">
 
-        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script defer src="bower_components/fontawesome/svg-with-js/js/fontawesome-all.min.js"></script>
 
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/popper.js/dist/popper.min.js"></script>
@@ -62,33 +66,37 @@
                 <i class="fas fa-times"></i>
             </a>
             <div class="dropright">
+                <a ng-class="{'text-danger': hasFilter.drafted}" id="filter-btn-drafted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="fas fa-check"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="filter-btn-drafted">
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.drafted[true]" ng-change="updateFilterDisplays()" />
+                        Drafted
+                    </label>
+                    <label class="dropdown-item form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="filter.drafted[false]" ng-change="updateFilterDisplays()" />
+                        Not drafted
+                    </label>
+                </div>
+            </div>
+            <div class="dropright">
                 <a ng-class="{'text-danger': hasFilter.positions}" id="filter-btn-position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     OD
                 </a>
                 <div class="dropdown-menu" aria-labelledby="filter-btn-position">
                     <label class="dropdown-item form-check-label">
                         <input type="checkbox" class="form-check-input" ng-model="filter.positions['o']" ng-change="updateFilterDisplays()" />
-                        Offence only
-                    </label>
-                    <label class="dropdown-item form-check-label">
-                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['o?']" ng-change="updateFilterDisplays()" />
-                        Offence preferred
+                        Offence
                     </label>
                     <label class="dropdown-item form-check-label">
                         <input type="checkbox" class="form-check-input" ng-model="filter.positions['?']" ng-change="updateFilterDisplays()" />
                         Either
                     </label>
                     <label class="dropdown-item form-check-label">
-                        <input type="checkbox" class="form-check-input" ng-model="filter.positions['d?']" ng-change="updateFilterDisplays()" />
-                        Defence perferred
-                    </label>
-                    <label class="dropdown-item form-check-label">
                         <input type="checkbox" class="form-check-input" ng-model="filter.positions['d']" ng-change="updateFilterDisplays()" />
-                        Defence only
+                        Defence
                     </label>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" ng-click="selectX(filter.positions, true)">Select all</a>
-                    <a class="dropdown-item" href="#" ng-click="selectX(filter.positions, false)">Select none</a>
                 </div>
             </div>
             <div class="dropright">
@@ -203,6 +211,12 @@
             </a>
         </div>
         <div id="tools" class="toolmenu" style="display: none">
+            <div class="dropright" id="search-dropdown">
+                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btn-search" ng-class="{'text-danger': search !== ''}">
+                    <i class="fas fa-search"></i>
+                </a>
+                <input type="text" class="dropdown-menu form-control px-2" ng-model="search" placeholder="Search..." id="search-input" />
+            </div>
             <a ng-class="{'text-danger': hasFilter.any}" href="#" title="Filter" data-toggle="tooltip" data-placement="right" ng-click="openToolMenu('#filters')">
                 <i class="fas fa-filter"></i>
             </a>
@@ -231,9 +245,11 @@
                             <tr>
                                 <th class="td-narrow"></th>
                                 <th class="td-narrow"></th>
+                                <th class="td-narrow"></th>
                                 <th>Player</th>
                                 <th>Rating</th>
                                 <th class="hidden-xs">Position</th>
+                                <th class="td-narrow"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -242,9 +258,14 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                                 <td class="hidden-xs"></td>
+                                <td></td>
                             </tr>
-                            <tr id="player-{{ $index }}" ng-repeat="row in packet" ng-class="['hl-' + highlights[row.profile], {'hide': !matchFilter(row), 'table-active': selection == $index}]" ng-click="select($index)">
+                            <tr id="player-{{ $index }}" ng-repeat="row in packet" ng-class="['hl-' + highlights[row.profile], {'drafted': drafted[row.name], 'hide': !matchFilter(row), 'table-active': selection == $index}]" ng-click="select($index)">
+                                <td class="td-narrow text-center">
+                                     <small>{{ $index + 1 }}</small>
+                                </td>
                                 <td class="td-narrow">
                                     <span ng-class="['flag-icon', 'flag-icon-' + row.country.code]"></span>
                                 </td>
@@ -255,17 +276,23 @@
                                     {{ row.name }}
                                 </td>
                                 <td>
-                                    <stars rating="row.rating"></stars>
+                                    <stars rating="row.rating" ng-if="!row.captain"></stars>
+                                    <span ng-if="row.captain">
+                                        Captain
+                                    </span>
                                 </td>
                                 <td class="hidden-xs">
                                     {{ format_position(row.position) }}
+                                </td>
+                                <td class="td-narrow">
+                                    <i ng-if="row.restriction !== ''" class="fas fa-exclamation-triangle text-warning"></i>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-md-6" id="right-panel">
-                    <div id="selected-player-overview" ng-show="selection >= 0" style="display: none;">
+                    <div id="selected-player-overview" ng-show="!loading && selection >= 0" style="display: none;">
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
@@ -318,17 +345,13 @@
                                     <div class="w25">
                                         Orbit: {{ player.ping.orbit }}
                                     </div>
-                                    <div ng-if="player.comment !== ''" class="w100">
-                                        {{ player.comment }}
-                                    </div>
-                                    <div ng-if="player.hasOwnProperty('rating_comment')" class="w100">
-                                        {{ player.rating_comment }}
-                                    </div>
+                                    <div ng-if="player.comment !== ''" class="w100 player-comment">{{ player.comment }}</div>
+                                    <div ng-if="player.hasOwnProperty('rating_comment')" class="w100 player-comment">{{ player.rating_comment }}</div>
+                                    <div ng-if="player.restriction !== ''" class="w100 player-comment text-danger">{{ player.restriction }}</div>
                                 </div>
                                 <div id="tab-availability-weekly" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-weekly">
-                                    <div class="card-body">
-                                        {{ player.availability.comment }}
-                                    </div>
+                                    <div class="card-body player-comment">{{ player.availability.comment }}</div>
+                                    <div ng-if="player.restriction !== ''" class="card-body player-comment text-danger">{{ player.restriction }}</div>
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>
@@ -357,9 +380,8 @@
                                     </table>
                                 </div>
                                 <div id="tab-availability-daily" class="card-block tab-pane" role="tabpanel" aria-labelledby="nav-tab-availability-daily">
-                                    <div class="card-body">
-                                        {{ player.availability.comment }}
-                                    </div>
+                                    <div class="card-body player-comment">{{ player.availability.comment }}</div>
+                                    <div ng-if="player.restriction !== ''" class="card-body player-comment text-danger">{{ player.restriction }}</div>
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>

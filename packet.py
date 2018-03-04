@@ -13,6 +13,8 @@ def process_row(row, rating):
         microphone, comment,
         __, ___,
         removed,
+        captain,
+        restriction,
         *_
     ) = row
 
@@ -26,6 +28,8 @@ def process_row(row, rating):
 
     pos = fix_position(position, position_preference)
     microphone = fix_microphone(microphone)
+
+    captain = captain == '1'
 
     return {
         'name': player_name,
@@ -41,16 +45,20 @@ def process_row(row, rating):
         'availability': {
             'weekly': weekly,
             'daily': daily,
-            'comment': comment_availability
+            'comment': comment_availability.strip()
         },
 
         'position': pos,
 
         'microphone': microphone,
 
-        'comment': comment,
+        'comment': comment.strip(),
 
-        'rating': rating.get_rating(),
+        'rating': 0 if captain else rating.get_rating(),
+
+        'captain': captain,
+
+        'restriction': restriction.strip(),
 
         'removed': removed == '1'
     }
@@ -152,14 +160,16 @@ def fix_position(position, preference):
     elif position == 'Offence only':
         pos = 'o'
 
-    pref = ''
-    if pos == '?':
-        if preference == 'I prefer offence':
-            pref = 'o'
-        elif preference == 'I prefer defence':
-            pref = 'd'
+    return pos
 
-    return {'primary': pos, 'preference': pref}
+    # pref = ''
+    # if pos == '?':
+    #     if preference == 'I prefer offence':
+    #         pref = 'o'
+    #     elif preference == 'I prefer defence':
+    #         pref = 'd'
+
+    # return {'primary': pos, 'preference': pref}
 
 
 def fix_microphone(microphone):

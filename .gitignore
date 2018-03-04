@@ -1,6 +1,7 @@
 credentials.json
 ftp.json
 sheets.json
+draft.json
 
 *.pyc
 __pycache__

@@ -20,6 +20,7 @@
     "bootstrap": "^4.0.0",
     "flag-icon-css": "^2.9.0",
     "jquery": "^3.3.1",
-    "popper.js": "^1.12.9"
+    "popper.js": "^1.12.9",
+    "fontawesome": "^5.0.6"
   }
 }

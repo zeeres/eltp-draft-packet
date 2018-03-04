@@ -10,14 +10,48 @@ $(document).ready(function() {
     $('#packet, #selected-player-overview, .toolmenu').show();
 });
 
-app.controller('draftPacketController', function($scope, $http) {
+app.controller('draftPacketController', function($scope, $http, $timeout) {
     $scope.packet = [];
     $scope.loading = true;
+
+    $scope.drafted = {};
+    $scope.draft_running = false;
+    $scope.draft_date = new Date(0);
+    $scope.draftTimeout = null;
+
+    $scope.updateDraft = function(response) {
+        var d = {};
+        for(var player of response.draft)
+            d[player] = true;
+        $scope.drafted = d;
+        $scope.draft_running = response.running;
+        $scope.draft_date = new Date(response.date);
+
+        var diff = (new Date) - $scope.draft_date;
+
+        var next = 15 * 60 * 1000; // update every 15 mins
+
+        if($scope.draft_running || diff >= 0 && diff < 60 * 60 * 1000)
+            next = 15 * 1000; // every 15 secs
+
+        $scope.scheduleDraftUpdate(next);
+    };
+
+    $scope.scheduleDraftUpdate = function(time) {
+        if($scope.draftTimeout !== null)
+            $timeout.cancel($scope.draftTimeout);
+
+        $scope.draftTimeout = $timeout(function() {
+            $http.get('draft.json').then(data => {
+                $scope.updateDraft(data.data);
+            });
+        }, time);
+    };
 
     $scope.dummy_rows = [];
     for(var i=0; i<50; ++i) $scope.dummy_rows.push(i);
 
-    $scope.selection = localStorage.getItem('selection') || -1;
+    $scope.selection = -1;
     $scope.player = {};
     $scope.weekly_availability = [];
 
@@ -46,13 +80,19 @@ app.controller('draftPacketController', function($scope, $http) {
     $scope.countries = [];
     $scope.countryNames = {};
 
+    $scope.search = '';
+
+    $('#search-dropdown').on('shown.bs.dropdown', function() {
+        $scope.search = '';
+        $scope.$apply();
+        $('#search-input').focus();
+    });
+
     $scope.filter = {
         countries: {'': true},
         positions: {
             'o': true,
-            'o?': true,
             '?': true,
-            'd?': true,
             'd': true
         },
         rating: {
@@ -75,6 +115,10 @@ app.controller('draftPacketController', function($scope, $http) {
             stripes: true,
             strikethrough: true,
             '': true
+        },
+        drafted: {
+            true: true,
+            false: true
         }
     };
 
@@ -83,7 +127,8 @@ app.controller('draftPacketController', function($scope, $http) {
         countries: false,
         positions: false,
         rating: false,
-        highlight: false
+        highlight: false,
+        drafted: false
     };
 
     $scope.selectX = function(o, v) {
@@ -103,11 +148,14 @@ app.controller('draftPacketController', function($scope, $http) {
         $scope.hasFilter.positions = check($scope.filter.positions);
         $scope.hasFilter.rating = check($scope.filter.rating);
         $scope.hasFilter.highlight = check($scope.filter.highlight);
+        $scope.hasFilter.drafted = check($scope.filter.drafted);
 
         $scope.hasFilter.any = $scope.hasFilter.countries
                             || $scope.hasFilter.positions
                             || $scope.hasFilter.rating
-                            || $scope.hasFilter.highlight;
+                            || $scope.hasFilter.highlight
+                            || $scope.hasFilter.drafted
+                            || $scope.search !== '';
     };
 
     $scope.resetFilters = function() {
@@ -119,22 +167,22 @@ app.controller('draftPacketController', function($scope, $http) {
         reset($scope.filter.positions);
         reset($scope.filter.rating);
         reset($scope.filter.highlight);
+        reset($scope.filter.drafted);
+
+        $scope.search = '';
 
         for(var k in $scope.hasFilter)
             $scope.hasFilter[k] = false;
     };
 
     $scope.matchFilter = function(player) {
-        function getPosition(p) {
-            if(p.primary !== '?')return p.primary;
-            if(p.preference !== '?')return p.preference + '?';
-            return p.preference;
-        }
         var hl = $scope.highlights[player.profile] || '';
-        return $scope.filter.countries[player.country.code]
-            && $scope.filter.positions[getPosition(player.position)]
+        return player.name.toLowerCase().indexOf($scope.search.toLowerCase()) !== -1
+            && $scope.filter.countries[player.country.code]
+            && $scope.filter.positions[player.position]
             && $scope.filter.rating[Math.floor(player.rating >= 10 ? 9 : player.rating)]
-            && $scope.filter.highlight[hl];
+            && $scope.filter.highlight[hl]
+            && $scope.filter.drafted[$scope.drafted[player.name] || false];
     };
 
     $scope.setHighlighter = function(h) {
@@ -218,27 +266,18 @@ app.controller('draftPacketController', function($scope, $http) {
     ]);
 
     $scope.format_position = function(pos) {
-        if(pos === undefined)
-            return '';
-
-        if(pos.primary === 'd')
-            return 'Defence only';
-        if(pos.primary === 'o')
-            return 'Offence only';
-
-        if(pos.preference === 'd')
-            return 'Defence preferred';
-        if(pos.preference === 'o')
-            return 'Offence preferred';
-
-        return 'Doesn\'t matter';
+        switch(pos) {
+        case 'd': return 'Defence';
+        case 'o': return 'Offence';
+        default:  return 'Doesn\'t matter';
+        }
     };
 
     $http.get('packet.json').then(data => {
         $scope.packet = data.data;
 
         var countryCounts = {};
-        
+
         for(var row of data.data) {
             var c = row.country.code;
 
@@ -257,13 +296,17 @@ app.controller('draftPacketController', function($scope, $http) {
         $scope.countries = Object.keys(countryCounts).sort((x, y) => countryCounts[y] - countryCounts[x]);
 
         $scope.loading = false;
+        $scope.select(parseInt(localStorage.getItem('selection') || '-1'));
 
-        $('#packet-container').popover({
-            'placement': 'right',
-            'content': 'Click a player to view more information!',
-            'trigger': 'manual',
-            'offset': '0px 20px'
-        }).popover('show');
+        if($scope.selection === -1)
+            $('#packet-container').popover({
+                'placement': 'right',
+                'content': 'Click a player to view more information!',
+                'trigger': 'manual',
+                'offset': '0px 20px'
+            }).popover('show');
+
+        $scope.scheduleDraftUpdate(1000);
     });
 
     $scope.keyboardNavigation = function(keyCode) {
